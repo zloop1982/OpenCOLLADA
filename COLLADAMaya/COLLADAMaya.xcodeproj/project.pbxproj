@@ -18,12 +18,16 @@
 		24FFE6D314A526D600D718C2 /* COLLADAFWInstanceKinematicsScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */; };
 		870E79C91B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 870E79C81B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h */; };
 		870E79CB1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 870E79CA1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp */; };
+		871C5B3A1BCEC138008B84FF /* COLLADAMayaPhysXExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 871C5B391BCEC138008B84FF /* COLLADAMayaPhysXExporter.h */; };
+		871C5B3C1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 871C5B3B1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp */; };
 		873516D81AC99C0A009300AC /* COLLADAMayaShaderFXShaderExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873516D71AC99C0A009300AC /* COLLADAMayaShaderFXShaderExporter.cpp */; };
 		8776CF011AC9975C00032EE7 /* COLLADAMayaShaderFXShaderExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8776CF001AC9975C00032EE7 /* COLLADAMayaShaderFXShaderExporter.h */; };
 		879D18E01AE8070F005C246C /* COLLADAMayaAttributeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 879D18DF1AE8070F005C246C /* COLLADAMayaAttributeParser.h */; };
 		879D18E21AE8071E005C246C /* COLLADAMayaAttributeParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879D18E11AE8071E005C246C /* COLLADAMayaAttributeParser.cpp */; };
 		87D7EAFB1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 87D7EAFA1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h */; };
 		87D7EAFD1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D7EAFC1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp */; };
+		87E0A7BC1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E0A7BB1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp */; };
+		87E0A7BE1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E0A7BD1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h */; };
 		95133F521AA8B986003AC4E2 /* COLLADAMayaPhysicsExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 95133F501AA8B986003AC4E2 /* COLLADAMayaPhysicsExporter.h */; };
 		95133F561AA8B9B4003AC4E2 /* COLLADAMayaPhysicsExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95133F541AA8B9B4003AC4E2 /* COLLADAMayaPhysicsExporter.cpp */; };
 		95133F5B1AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 95133F571AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h */; };
@@ -34,7 +38,11 @@
 		95133F641AA8BA51003AC4E2 /* COLLADASWInstanceRigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95133F601AA8BA51003AC4E2 /* COLLADASWInstanceRigidBody.cpp */; };
 		95133F651AA8BA51003AC4E2 /* COLLADASWLibraryPhysicsModels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95133F611AA8BA51003AC4E2 /* COLLADASWLibraryPhysicsModels.cpp */; };
 		95133F661AA8BA51003AC4E2 /* COLLADASWLibraryPhysicsScenes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95133F621AA8BA51003AC4E2 /* COLLADASWLibraryPhysicsScenes.cpp */; };
-		95FE6FEC1B0A0D3D00E95342 /* COLLADASWTagType.h in Headers */ = {isa = PBXBuildFile; fileRef = 95FE6FEB1B0A0D3D00E95342 /* COLLADASWTagType.h */; };
+		9526B2551CABD54B00373794 /* COLLADABUVersionInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9526B2541CABD54B00373794 /* COLLADABUVersionInfo.h */; };
+		95AF1A811CCFC236009B9B7D /* COLLADAMayaLODExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 95AF1A801CCFC236009B9B7D /* COLLADAMayaLODExporter.h */; };
+		95AF1A831CCFC257009B9B7D /* COLLADAMayaLODExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95AF1A821CCFC257009B9B7D /* COLLADAMayaLODExporter.cpp */; };
+		95AF1A851CCFC30C009B9B7D /* COLLADASWLibraryNodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 95AF1A841CCFC30C009B9B7D /* COLLADASWLibraryNodes.h */; };
+		95AF1A871CCFC32A009B9B7D /* COLLADASWLibraryNodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95AF1A861CCFC32A009B9B7D /* COLLADASWLibraryNodes.cpp */; };
 		A5155E1619F795D800D5D4DC /* COLLADAMaya.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = D2AAC09D05546B4700DB518D /* COLLADAMaya.bundle */; };
 		CE0B3D8A0F56AF48004F8570 /* COLLADASWAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D570F56AF48004F8570 /* COLLADASWAsset.cpp */; };
 		CE0B3D8B0F56AF48004F8570 /* COLLADASWBaseElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE0B3D580F56AF48004F8570 /* COLLADASWBaseElement.cpp */; };
@@ -343,7 +351,6 @@
 		CE3E66A10FD54BD4003D1AD2 /* COLLADAFWMorphController.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3E66A00FD54BD4003D1AD2 /* COLLADAFWMorphController.h */; };
 		CE3E66A30FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE3E66A20FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp */; };
 		CE3E66B60FD54FA7003D1AD2 /* COLLADAFWSkinController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE784F2F0FB5AAC100F2F8D6 /* COLLADAFWSkinController.cpp */; };
-		CE4A34C90F98E47A00E32945 /* COLLADAMayaVersionInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4A34C80F98E47A00E32945 /* COLLADAMayaVersionInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE55B8AE1701A4080038F432 /* COLLADAFWPolylist.h in Headers */ = {isa = PBXBuildFile; fileRef = CE55B8AD1701A4080038F432 /* COLLADAFWPolylist.h */; };
 		CE615FD81020DC3D00481492 /* MathMLASTArithmeticExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = CE79D1281020BD9A00A3A027 /* MathMLASTArithmeticExpression.h */; };
 		CE615FD91020DC3D00481492 /* MathMLASTBinaryComparisionExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = CE79D1291020BD9A00A3A027 /* MathMLASTBinaryComparisionExpression.h */; };
@@ -939,12 +946,16 @@
 		24FFE6CF14A526CF00D718C2 /* COLLADAFWInstanceKinematicsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWInstanceKinematicsScene.h; path = ../COLLADAFramework/include/COLLADAFWInstanceKinematicsScene.h; sourceTree = "<group>"; };
 		870E79C81B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysicsSceneExporter.h; path = include/COLLADAMayaPhysicsSceneExporter.h; sourceTree = "<group>"; };
 		870E79CA1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysicsSceneExporter.cpp; path = src/COLLADAMayaPhysicsSceneExporter.cpp; sourceTree = "<group>"; };
+		871C5B391BCEC138008B84FF /* COLLADAMayaPhysXExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysXExporter.h; path = include/COLLADAMayaPhysXExporter.h; sourceTree = "<group>"; };
+		871C5B3B1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysXExporter.cpp; path = src/COLLADAMayaPhysXExporter.cpp; sourceTree = "<group>"; };
 		873516D71AC99C0A009300AC /* COLLADAMayaShaderFXShaderExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaShaderFXShaderExporter.cpp; path = src/COLLADAMayaShaderFXShaderExporter.cpp; sourceTree = "<group>"; };
 		8776CF001AC9975C00032EE7 /* COLLADAMayaShaderFXShaderExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaShaderFXShaderExporter.h; path = include/COLLADAMayaShaderFXShaderExporter.h; sourceTree = "<group>"; };
 		879D18DF1AE8070F005C246C /* COLLADAMayaAttributeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaAttributeParser.h; path = include/COLLADAMayaAttributeParser.h; sourceTree = "<group>"; };
 		879D18E11AE8071E005C246C /* COLLADAMayaAttributeParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaAttributeParser.cpp; path = src/COLLADAMayaAttributeParser.cpp; sourceTree = "<group>"; };
 		87D7EAFA1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaLightProbeExporter.h; path = include/COLLADAMayaLightProbeExporter.h; sourceTree = "<group>"; };
 		87D7EAFC1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaLightProbeExporter.cpp; path = src/COLLADAMayaLightProbeExporter.cpp; sourceTree = "<group>"; };
+		87E0A7BB1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysXXML.cpp; path = src/COLLADAMayaPhysXXML.cpp; sourceTree = "<group>"; };
+		87E0A7BD1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysXXML.h; path = include/COLLADAMayaPhysXXML.h; sourceTree = "<group>"; };
 		95133F501AA8B986003AC4E2 /* COLLADAMayaPhysicsExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysicsExporter.h; path = include/COLLADAMayaPhysicsExporter.h; sourceTree = "<group>"; };
 		95133F541AA8B9B4003AC4E2 /* COLLADAMayaPhysicsExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysicsExporter.cpp; path = src/COLLADAMayaPhysicsExporter.cpp; sourceTree = "<group>"; };
 		95133F571AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADASWInstancePhysicsModel.h; path = ../COLLADAStreamWriter/include/COLLADASWInstancePhysicsModel.h; sourceTree = "<group>"; };
@@ -955,7 +966,11 @@
 		95133F601AA8BA51003AC4E2 /* COLLADASWInstanceRigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWInstanceRigidBody.cpp; path = ../COLLADAStreamWriter/src/COLLADASWInstanceRigidBody.cpp; sourceTree = "<group>"; };
 		95133F611AA8BA51003AC4E2 /* COLLADASWLibraryPhysicsModels.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWLibraryPhysicsModels.cpp; path = ../COLLADAStreamWriter/src/COLLADASWLibraryPhysicsModels.cpp; sourceTree = "<group>"; };
 		95133F621AA8BA51003AC4E2 /* COLLADASWLibraryPhysicsScenes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWLibraryPhysicsScenes.cpp; path = ../COLLADAStreamWriter/src/COLLADASWLibraryPhysicsScenes.cpp; sourceTree = "<group>"; };
-		95FE6FEB1B0A0D3D00E95342 /* COLLADASWTagType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADASWTagType.h; path = ../COLLADAStreamWriter/include/COLLADASWTagType.h; sourceTree = "<group>"; };
+		9526B2541CABD54B00373794 /* COLLADABUVersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADABUVersionInfo.h; path = ../COLLADABaseUtils/include/COLLADABUVersionInfo.h; sourceTree = "<group>"; };
+		95AF1A801CCFC236009B9B7D /* COLLADAMayaLODExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaLODExporter.h; path = include/COLLADAMayaLODExporter.h; sourceTree = "<group>"; };
+		95AF1A821CCFC257009B9B7D /* COLLADAMayaLODExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaLODExporter.cpp; path = src/COLLADAMayaLODExporter.cpp; sourceTree = "<group>"; };
+		95AF1A841CCFC30C009B9B7D /* COLLADASWLibraryNodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADASWLibraryNodes.h; path = ../COLLADAStreamWriter/include/COLLADASWLibraryNodes.h; sourceTree = "<group>"; };
+		95AF1A861CCFC32A009B9B7D /* COLLADASWLibraryNodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWLibraryNodes.cpp; path = ../COLLADAStreamWriter/src/COLLADASWLibraryNodes.cpp; sourceTree = "<group>"; };
 		CE0B3D570F56AF48004F8570 /* COLLADASWAsset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWAsset.cpp; path = ../COLLADAStreamWriter/src/COLLADASWAsset.cpp; sourceTree = SOURCE_ROOT; };
 		CE0B3D580F56AF48004F8570 /* COLLADASWBaseElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWBaseElement.cpp; path = ../COLLADAStreamWriter/src/COLLADASWBaseElement.cpp; sourceTree = SOURCE_ROOT; };
 		CE0B3D590F56AF48004F8570 /* COLLADASWBaseInputElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASWBaseInputElement.cpp; path = ../COLLADAStreamWriter/src/COLLADASWBaseInputElement.cpp; sourceTree = SOURCE_ROOT; };
@@ -1264,7 +1279,6 @@
 		CE3E668E0FD54A76003D1AD2 /* pcre_try_flipped.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pcre_try_flipped.c; path = ../Externals/pcre/src/pcre_try_flipped.c; sourceTree = SOURCE_ROOT; };
 		CE3E66A00FD54BD4003D1AD2 /* COLLADAFWMorphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWMorphController.h; path = ../COLLADAFramework/include/COLLADAFWMorphController.h; sourceTree = SOURCE_ROOT; };
 		CE3E66A20FD54BEA003D1AD2 /* COLLADAFWMorphController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAFWMorphController.cpp; path = ../COLLADAFramework/src/COLLADAFWMorphController.cpp; sourceTree = SOURCE_ROOT; };
-		CE4A34C80F98E47A00E32945 /* COLLADAMayaVersionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaVersionInfo.h; path = include/COLLADAMayaVersionInfo.h; sourceTree = "<group>"; };
 		CE55B8AD1701A4080038F432 /* COLLADAFWPolylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWPolylist.h; path = ../COLLADAFramework/include/COLLADAFWPolylist.h; sourceTree = "<group>"; };
 		CE6095210E93CD6B007F776B /* libCOLLADAStreamWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCOLLADAStreamWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE615FD01020DBF500481492 /* libMathMLSolver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMathMLSolver.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2377,6 +2391,9 @@
 		CE72910410AC800500AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				95AF1A821CCFC257009B9B7D /* COLLADAMayaLODExporter.cpp */,
+				87E0A7BB1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp */,
+				871C5B3B1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp */,
 				870E79CA1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp */,
 				87D7EAFC1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp */,
 				879D18E11AE8071E005C246C /* COLLADAMayaAttributeParser.cpp */,
@@ -2422,6 +2439,10 @@
 		CE72910510AC800C00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				95AF1A801CCFC236009B9B7D /* COLLADAMayaLODExporter.h */,
+				9526B2541CABD54B00373794 /* COLLADABUVersionInfo.h */,
+				87E0A7BD1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h */,
+				871C5B391BCEC138008B84FF /* COLLADAMayaPhysXExporter.h */,
 				870E79C81B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h */,
 				87D7EAFA1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h */,
 				879D18DF1AE8070F005C246C /* COLLADAMayaAttributeParser.h */,
@@ -2469,7 +2490,6 @@
 				CE0B3ED00F56AFD8004F8570 /* COLLADAMayaStableHeaders.h */,
 				CE0B3ED10F56AFD8004F8570 /* COLLADAMayaSyntax.h */,
 				CE0B3ED20F56AFD8004F8570 /* COLLADAMayaTangentPoint.h */,
-				CE4A34C80F98E47A00E32945 /* COLLADAMayaVersionInfo.h */,
 				CE0B3ED30F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h */,
 			);
 			name = include;
@@ -2555,6 +2575,7 @@
 		CE72910D10AC81C700AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				95AF1A861CCFC32A009B9B7D /* COLLADASWLibraryNodes.cpp */,
 				95133F5F1AA8BA51003AC4E2 /* COLLADASWInstancePhysicsModel.cpp */,
 				95133F601AA8BA51003AC4E2 /* COLLADASWInstanceRigidBody.cpp */,
 				95133F611AA8BA51003AC4E2 /* COLLADASWLibraryPhysicsModels.cpp */,
@@ -2617,7 +2638,7 @@
 		CE72910E10AC81CE00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				95FE6FEB1B0A0D3D00E95342 /* COLLADASWTagType.h */,
+				95AF1A841CCFC30C009B9B7D /* COLLADASWLibraryNodes.h */,
 				95133F571AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h */,
 				95133F581AA8BA37003AC4E2 /* COLLADASWInstanceRigidBody.h */,
 				95133F591AA8BA37003AC4E2 /* COLLADASWLibraryPhysicsModels.h */,
@@ -3443,6 +3464,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95AF1A811CCFC236009B9B7D /* COLLADAMayaLODExporter.h in Headers */,
 				CE0B3ED50F56AFD8004F8570 /* COLLADAMayaAnimationClipExporter.h in Headers */,
 				CE0B3ED60F56AFD8004F8570 /* COLLADAMayaAnimationCurves.h in Headers */,
 				CE0B3ED70F56AFD8004F8570 /* COLLADAMayaAnimationElement.h in Headers */,
@@ -3460,14 +3482,15 @@
 				CE0B3EE50F56AFD8004F8570 /* COLLADAMayaDocumentExporter.h in Headers */,
 				8776CF011AC9975C00032EE7 /* COLLADAMayaShaderFXShaderExporter.h in Headers */,
 				CE0B3EE70F56AFD8004F8570 /* COLLADAMayaEffectExporter.h in Headers */,
-				95FE6FEC1B0A0D3D00E95342 /* COLLADASWTagType.h in Headers */,
 				CE0B3EE90F56AFD8004F8570 /* COLLADAMayaEffectTextureExporter.h in Headers */,
 				CE0B3EEB0F56AFD8004F8570 /* COLLADAMayaExportOptions.h in Headers */,
 				CE0B3EEC0F56AFD8004F8570 /* COLLADAMayaFileTranslator.h in Headers */,
 				95133F5E1AA8BA37003AC4E2 /* COLLADASWLibraryPhysicsScenes.h in Headers */,
+				9526B2551CABD54B00373794 /* COLLADABUVersionInfo.h in Headers */,
 				CE0B3EEE0F56AFD8004F8570 /* COLLADAMayaGeometryExporter.h in Headers */,
 				CE0B3EF00F56AFD8004F8570 /* COLLADAMayaGeometryPolygonExporter.h in Headers */,
 				CE0B3EF10F56AFD8004F8570 /* COLLADAMayaHwShaderExporter.h in Headers */,
+				87E0A7BE1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h in Headers */,
 				CE0B3EF20F56AFD8004F8570 /* COLLADAMayaImageExporter.h in Headers */,
 				CE0B3EF40F56AFD8004F8570 /* COLLADAMayaImportOptions.h in Headers */,
 				CE0B3EF50F56AFD8004F8570 /* COLLADAMayaLightExporter.h in Headers */,
@@ -3482,17 +3505,18 @@
 				CE0B3F000F56AFD8004F8570 /* COLLADAMayaRotateHelper.h in Headers */,
 				CE0B3F020F56AFD8004F8570 /* COLLADAMayaSceneElement.h in Headers */,
 				CE0B3F030F56AFD8004F8570 /* COLLADAMayaSceneGraph.h in Headers */,
+				95AF1A851CCFC30C009B9B7D /* COLLADASWLibraryNodes.h in Headers */,
 				CE0B3F040F56AFD8004F8570 /* COLLADAMayaSetHelper.h in Headers */,
 				CE0B3F050F56AFD8004F8570 /* COLLADAMayaShaderHelper.h in Headers */,
 				CE0B3F070F56AFD8004F8570 /* COLLADAMayaSkinController.h in Headers */,
 				CE0B3F080F56AFD8004F8570 /* COLLADAMayaSourceInput.h in Headers */,
 				CE0B3F090F56AFD8004F8570 /* COLLADAMayaStableHeaders.h in Headers */,
 				CE0B3F0A0F56AFD8004F8570 /* COLLADAMayaSyntax.h in Headers */,
+				871C5B3A1BCEC138008B84FF /* COLLADAMayaPhysXExporter.h in Headers */,
 				CE0B3F0B0F56AFD8004F8570 /* COLLADAMayaTangentPoint.h in Headers */,
 				CE0B3F0C0F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h in Headers */,
 				879D18E01AE8070F005C246C /* COLLADAMayaAttributeParser.h in Headers */,
 				95133F5D1AA8BA37003AC4E2 /* COLLADASWLibraryPhysicsModels.h in Headers */,
-				CE4A34C90F98E47A00E32945 /* COLLADAMayaVersionInfo.h in Headers */,
 				CE7D40150FF1308D00849CFA /* COLLADAMayaBaseAnimation.h in Headers */,
 				95133F521AA8B986003AC4E2 /* COLLADAMayaPhysicsExporter.h in Headers */,
 				CE7D40160FF1308E00849CFA /* COLLADAMayaMayaTransform.h in Headers */,
@@ -3686,7 +3710,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "COLLADAMaya" */;
 			buildPhases = (
-				CEDCFD690F9C6C90008271C2 /* ShellScript */,
 				D2AAC09905546B4700DB518D /* Headers */,
 				D2AAC09B05546B4700DB518D /* Frameworks */,
 				D2AAC09A05546B4700DB518D /* Sources */,
@@ -3745,22 +3768,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		CEDCFD690F9C6C90008271C2 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = ./generateVersionHeader.sh;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE0B3F4D0F56B194004F8570 /* Sources */ = {
@@ -4115,6 +4122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE72916810ACA1F800AE5662 /* COLLADAMayaAnimationClipExporter.cpp in Sources */,
+				95AF1A831CCFC257009B9B7D /* COLLADAMayaLODExporter.cpp in Sources */,
 				CE72916910ACA1F800AE5662 /* COLLADAMayaAnimationCurves.cpp in Sources */,
 				CE72916A10ACA1F800AE5662 /* COLLADAMayaAnimationElement.cpp in Sources */,
 				CE72916B10ACA1F800AE5662 /* COLLADAMayaAnimationExporter.cpp in Sources */,
@@ -4135,6 +4143,7 @@
 				CE72917810ACA1F800AE5662 /* COLLADAMayaExportOptions.cpp in Sources */,
 				87D7EAFD1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp in Sources */,
 				CE72917910ACA1F800AE5662 /* COLLADAMayaFileTranslator.cpp in Sources */,
+				871C5B3C1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp in Sources */,
 				CE72917A10ACA1F800AE5662 /* COLLADAMayaGeometryExporter.cpp in Sources */,
 				CE72917B10ACA1F800AE5662 /* COLLADAMayaGeometryPolygonExporter.cpp in Sources */,
 				CE72917C10ACA1F800AE5662 /* COLLADAMayaHwShaderExporter.cpp in Sources */,
@@ -4146,6 +4155,7 @@
 				879D18E21AE8071E005C246C /* COLLADAMayaAttributeParser.cpp in Sources */,
 				CE72918110ACA1F800AE5662 /* COLLADAMayaPrecompiledHeaders.cpp in Sources */,
 				CE72918210ACA1F800AE5662 /* COLLADAMayaReferenceManager.cpp in Sources */,
+				87E0A7BC1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp in Sources */,
 				CE72918310ACA1F800AE5662 /* COLLADAMayaRotateHelper.cpp in Sources */,
 				CE72918410ACA1F800AE5662 /* COLLADAMayaSceneElement.cpp in Sources */,
 				CE72918510ACA1F800AE5662 /* COLLADAMayaSceneGraph.cpp in Sources */,
@@ -4155,6 +4165,7 @@
 				873516D81AC99C0A009300AC /* COLLADAMayaShaderFXShaderExporter.cpp in Sources */,
 				CE72918810ACA1F800AE5662 /* COLLADAMayaSourceInput.cpp in Sources */,
 				CE72918910ACA1F800AE5662 /* COLLADAMayaVisualSceneExporter.cpp in Sources */,
+				95AF1A871CCFC32A009B9B7D /* COLLADASWLibraryNodes.cpp in Sources */,
 				95133F561AA8B9B4003AC4E2 /* COLLADAMayaPhysicsExporter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4278,6 +4289,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4333,6 +4345,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4432,6 +4445,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4637,6 +4651,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4811,6 +4826,7 @@
 		323857CC1B09C04A00571BB2 /* Release 2016 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
@@ -4830,6 +4846,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4998,6 +5015,408 @@
 			};
 			name = "Release 2016";
 		};
+		3263AFA61D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MAYA_PATH = /Applications/Autodesk/maya2017;
+				New_Setting = "";
+				SDKROOT = macosx10.9;
+			};
+			name = "Release 2017";
+		};
+		3263AFA71D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = "\"$(MAYA_PATH)/Maya.app/Contents/Frameworks\"";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CREATE_IMPORT_PLUGIN,
+					MAC_PLUGIN,
+					NDEBUG,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					_BOOL,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
+					../Externals/MayaDataModel/include,
+					"$(MAYA_PATH)/devkit/plug-ins",
+					"$(MAYA_PATH)/devkit/include",
+					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
+				);
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2015/plug-ins";
+				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH)/Maya.app/Contents/MacOS";
+				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lCOLLADAStreamWriter",
+					"-lCOLLADABaseUtils",
+					"-lCOLLADAFramework",
+					"-lCOLLADASaxFrameworkLoader",
+					"-lGeneratedSaxParser",
+					"-llibftoa",
+					"-llibBuffer",
+					"-ldae2ma",
+					"-lpcre",
+					"-lMathMLSolver",
+					"-lxml2",
+					"-shared",
+					"-framework",
+					Cg,
+				);
+				PRODUCT_NAME = COLLADAMaya;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = "Release 2017";
+		};
+		3263AFA81D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+				);
+				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				PRODUCT_NAME = COLLADAStreamWriter;
+			};
+			name = "Release 2017";
+		};
+		3263AFA91D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../Externals/UTF/include,
+					../COLLADABaseUtils/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = COLLADABaseUtils;
+			};
+			name = "Release 2017";
+		};
+		3263AFAA1D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				PRODUCT_NAME = GeneratedSaxParser;
+			};
+			name = "Release 2017";
+		};
+		3263AFAB1D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					NDEBUG,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../COLLADABaseUtils/include\"";
+				PRODUCT_NAME = COLLADAFramework;
+			};
+			name = "Release 2017";
+		};
+		3263AFAC1D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+				);
+				PRODUCT_NAME = COLLADASaxFrameworkLoader;
+			};
+			name = "Release 2017";
+		};
+		3263AFAD1D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Release 2017";
+		};
+		3263AFAE1D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = "Release 2017";
+		};
+		3263AFAF1D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = libftoa;
+			};
+			name = "Release 2017";
+		};
+		3263AFB01D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					../common/libftoa/include,
+					../Externals/UTF/include,
+				);
+				PRODUCT_NAME = libBuffer;
+			};
+			name = "Release 2017";
+		};
+		3263AFB11D654A98002FC311 /* Release 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					MAC_PLUGIN,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADASaxFrameworkLoader/include,
+					"\"$(SRCROOT)/../Externals/MayaDataModel/include/\"",
+				);
+				PRODUCT_NAME = dae2ma;
+			};
+			name = "Release 2017";
+		};
+		3263AFB21D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MAYA_PATH = /Applications/Autodesk/maya2017;
+				New_Setting = "";
+				SDKROOT = macosx10.9;
+			};
+			name = "Debug 2017";
+		};
+		3263AFB31D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = "\"$(MAYA_PATH)/Maya.app/Contents/Frameworks\"";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CREATE_IMPORT_PLUGIN,
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					DEBUG,
+					_BOOL,
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
+					../Externals/MayaDataModel/include,
+					"$(MAYA_PATH)/devkit/plug-ins",
+					"$(MAYA_PATH)/devkit/include",
+					"$(MAYA_PATH)/devkit/plug-ins/cgFx",
+				);
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2014/plug-ins";
+				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH)/Maya.app/Contents/MacOS";
+				MACH_O_TYPE = mh_dylib;
+				MAYA_PATH = /Applications/Autodesk/maya2015;
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_PATH)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lCOLLADAStreamWriter",
+					"-lCOLLADABaseUtils",
+					"-lCOLLADAFramework",
+					"-lCOLLADASaxFrameworkLoader",
+					"-lGeneratedSaxParser",
+					"-llibftoa",
+					"-llibBuffer",
+					"-ldae2ma",
+					"-lpcre",
+					"-lMathMLSolver",
+					"-lxml2",
+					"-shared",
+					"-framework",
+					Cg,
+				);
+				PRODUCT_NAME = COLLADAMaya;
+			};
+			name = "Debug 2017";
+		};
+		3263AFB41D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					DEBUG,
+				);
+				HEADER_SEARCH_PATHS = ../COLLADABaseUtils/include;
+				PRODUCT_NAME = COLLADAStreamWriter;
+			};
+			name = "Debug 2017";
+		};
+		3263AFB51D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					REQUIRE_IOSTREAM,
+					DEBUG,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../Externals/UTF/include,
+					../COLLADABaseUtils/include,
+				);
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = COLLADABaseUtils;
+			};
+			name = "Debug 2017";
+		};
+		3263AFB61D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				PRODUCT_NAME = GeneratedSaxParser;
+			};
+			name = "Debug 2017";
+		};
+		3263AFB71D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../COLLADABaseUtils/include\"";
+				PRODUCT_NAME = COLLADAFramework;
+			};
+			name = "Debug 2017";
+		};
+		3263AFB81D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					_DEBUG,
+					GENERATEDSAXPARSER_XMLPARSER_LIBXML,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include/,
+					/usr/include/libxml2,
+				);
+				PRODUCT_NAME = COLLADASaxFrameworkLoader;
+			};
+			name = "Debug 2017";
+		};
+		3263AFB91D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = pcre;
+			};
+			name = "Debug 2017";
+		};
+		3263AFBA1D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = MathMLSolver;
+			};
+			name = "Debug 2017";
+		};
+		3263AFBB1D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				PRODUCT_NAME = libftoa;
+			};
+			name = "Debug 2017";
+		};
+		3263AFBC1D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					../common/libftoa/include,
+					../Externals/UTF/include,
+				);
+				PRODUCT_NAME = libBuffer;
+			};
+			name = "Debug 2017";
+		};
+		3263AFBD1D654B4E002FC311 /* Debug 2017 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					MAC_PLUGIN,
+					OSMac_,
+				);
+				HEADER_SEARCH_PATHS = (
+					../COLLADABaseUtils/include,
+					../COLLADASaxFrameworkLoader/include,
+					"\"$(SRCROOT)/../Externals/MayaDataModel/include/\"",
+				);
+				PRODUCT_NAME = dae2ma;
+			};
+			name = "Debug 2017";
+		};
 		A3ED9FE417A63E660036CBBF /* Debug 2014 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5036,6 +5455,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -5228,6 +5648,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -5434,6 +5855,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -5627,6 +6049,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6225,6 +6648,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6378,6 +6802,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6709,6 +7134,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6792,6 +7218,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6877,6 +7304,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -7080,6 +7508,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -7288,6 +7717,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -7481,6 +7911,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -7844,6 +8275,7 @@
 				A3ED9FE517A63E660036CBBF /* Debug 2014 */,
 				A5155DFE19F7881600D5D4DC /* Debug 2015 */,
 				323857C01B09C04000571BB2 /* Debug 2016 */,
+				3263AFB31D654B4E002FC311 /* Debug 2017 */,
 				1DEB916208733D950010E9CD /* Release 2008 */,
 				CE84B3340E9F96D600728F47 /* Release 2009 */,
 				CE7456E5104CF660000083A6 /* Release 2010 */,
@@ -7853,6 +8285,7 @@
 				A3ED9FF117A63E6F0036CBBF /* Release 2014 */,
 				A5155E0A19F7881D00D5D4DC /* Release 2015 */,
 				323857CC1B09C04A00571BB2 /* Release 2016 */,
+				3263AFA71D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7869,6 +8302,7 @@
 				A3ED9FE417A63E660036CBBF /* Debug 2014 */,
 				A5155DFD19F7881600D5D4DC /* Debug 2015 */,
 				323857BF1B09C04000571BB2 /* Debug 2016 */,
+				3263AFB21D654B4E002FC311 /* Debug 2017 */,
 				1DEB916608733D950010E9CD /* Release 2008 */,
 				CE84B3330E9F96D600728F47 /* Release 2009 */,
 				CE7456E4104CF660000083A6 /* Release 2010 */,
@@ -7878,6 +8312,7 @@
 				A3ED9FF017A63E6F0036CBBF /* Release 2014 */,
 				A5155E0919F7881D00D5D4DC /* Release 2015 */,
 				323857CB1B09C04A00571BB2 /* Release 2016 */,
+				3263AFA61D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7894,6 +8329,7 @@
 				A3ED9FE717A63E660036CBBF /* Debug 2014 */,
 				A5155E0019F7881600D5D4DC /* Debug 2015 */,
 				323857C21B09C04000571BB2 /* Debug 2016 */,
+				3263AFB51D654B4E002FC311 /* Debug 2017 */,
 				CE0B3F530F56B194004F8570 /* Release 2008 */,
 				CE0B3F540F56B194004F8570 /* Release 2009 */,
 				CE7456E7104CF660000083A6 /* Release 2010 */,
@@ -7903,6 +8339,7 @@
 				A3ED9FF317A63E6F0036CBBF /* Release 2014 */,
 				A5155E0C19F7881D00D5D4DC /* Release 2015 */,
 				323857CE1B09C04A00571BB2 /* Release 2016 */,
+				3263AFA91D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7919,6 +8356,7 @@
 				A3ED9FEB17A63E660036CBBF /* Debug 2014 */,
 				A5155E0419F7881600D5D4DC /* Debug 2015 */,
 				323857C61B09C04000571BB2 /* Debug 2016 */,
+				3263AFB91D654B4E002FC311 /* Debug 2017 */,
 				CE3E667E0FD54A21003D1AD2 /* Release 2008 */,
 				CE3E667F0FD54A21003D1AD2 /* Release 2009 */,
 				CE7456EB104CF660000083A6 /* Release 2010 */,
@@ -7928,6 +8366,7 @@
 				A3ED9FF717A63E6F0036CBBF /* Release 2014 */,
 				A5155E1019F7881D00D5D4DC /* Release 2015 */,
 				323857D21B09C04A00571BB2 /* Release 2016 */,
+				3263AFAD1D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7944,6 +8383,7 @@
 				A3ED9FE617A63E660036CBBF /* Debug 2014 */,
 				A5155DFF19F7881600D5D4DC /* Debug 2015 */,
 				323857C11B09C04000571BB2 /* Debug 2016 */,
+				3263AFB41D654B4E002FC311 /* Debug 2017 */,
 				CE6095230E93CD6C007F776B /* Release 2008 */,
 				CE84B3350E9F96D600728F47 /* Release 2009 */,
 				CE7456E6104CF660000083A6 /* Release 2010 */,
@@ -7953,6 +8393,7 @@
 				A3ED9FF217A63E6F0036CBBF /* Release 2014 */,
 				A5155E0B19F7881D00D5D4DC /* Release 2015 */,
 				323857CD1B09C04A00571BB2 /* Release 2016 */,
+				3263AFA81D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7969,6 +8410,7 @@
 				A3ED9FEC17A63E660036CBBF /* Debug 2014 */,
 				A5155E0519F7881600D5D4DC /* Debug 2015 */,
 				323857C71B09C04000571BB2 /* Debug 2016 */,
+				3263AFBA1D654B4E002FC311 /* Debug 2017 */,
 				CE615FD31020DBF600481492 /* Release 2008 */,
 				CE615FD41020DBF600481492 /* Release 2009 */,
 				CE7456EC104CF660000083A6 /* Release 2010 */,
@@ -7978,6 +8420,7 @@
 				A3ED9FF817A63E6F0036CBBF /* Release 2014 */,
 				A5155E1119F7881D00D5D4DC /* Release 2015 */,
 				323857D31B09C04A00571BB2 /* Release 2016 */,
+				3263AFAE1D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -7994,6 +8437,7 @@
 				A3ED9FED17A63E660036CBBF /* Debug 2014 */,
 				A5155E0619F7881600D5D4DC /* Debug 2015 */,
 				323857C81B09C04000571BB2 /* Debug 2016 */,
+				3263AFBB1D654B4E002FC311 /* Debug 2017 */,
 				CE728FE010AC6D5200AE5662 /* Release 2008 */,
 				CE728FE110AC6D5200AE5662 /* Release 2009 */,
 				CE728FE210AC6D5200AE5662 /* Release 2010 */,
@@ -8003,6 +8447,7 @@
 				A3ED9FF917A63E6F0036CBBF /* Release 2014 */,
 				A5155E1219F7881D00D5D4DC /* Release 2015 */,
 				323857D41B09C04A00571BB2 /* Release 2016 */,
+				3263AFAF1D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -8019,6 +8464,7 @@
 				A3ED9FEE17A63E660036CBBF /* Debug 2014 */,
 				A5155E0719F7881600D5D4DC /* Debug 2015 */,
 				323857C91B09C04000571BB2 /* Debug 2016 */,
+				3263AFBC1D654B4E002FC311 /* Debug 2017 */,
 				CE728FEB10AC6D7A00AE5662 /* Release 2008 */,
 				CE728FEC10AC6D7A00AE5662 /* Release 2009 */,
 				CE728FED10AC6D7A00AE5662 /* Release 2010 */,
@@ -8028,6 +8474,7 @@
 				A3ED9FFA17A63E6F0036CBBF /* Release 2014 */,
 				A5155E1319F7881D00D5D4DC /* Release 2015 */,
 				323857D51B09C04A00571BB2 /* Release 2016 */,
+				3263AFB01D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -8044,6 +8491,7 @@
 				A3ED9FEF17A63E660036CBBF /* Debug 2014 */,
 				A5155E0819F7881600D5D4DC /* Debug 2015 */,
 				323857CA1B09C04000571BB2 /* Debug 2016 */,
+				3263AFBD1D654B4E002FC311 /* Debug 2017 */,
 				CE728FFC10AC6E1F00AE5662 /* Release 2008 */,
 				CE728FFD10AC6E1F00AE5662 /* Release 2009 */,
 				CE728FFE10AC6E1F00AE5662 /* Release 2010 */,
@@ -8053,6 +8501,7 @@
 				A3ED9FFB17A63E6F0036CBBF /* Release 2014 */,
 				A5155E1419F7881D00D5D4DC /* Release 2015 */,
 				323857D61B09C04B00571BB2 /* Release 2016 */,
+				3263AFB11D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -8069,6 +8518,7 @@
 				A3ED9FE817A63E660036CBBF /* Debug 2014 */,
 				A5155E0119F7881600D5D4DC /* Debug 2015 */,
 				323857C31B09C04000571BB2 /* Debug 2016 */,
+				3263AFB61D654B4E002FC311 /* Debug 2017 */,
 				CE787BD00F583F360019C2D7 /* Release 2008 */,
 				CE787BD10F583F360019C2D7 /* Release 2009 */,
 				CE7456E8104CF660000083A6 /* Release 2010 */,
@@ -8078,6 +8528,7 @@
 				A3ED9FF417A63E6F0036CBBF /* Release 2014 */,
 				A5155E0D19F7881D00D5D4DC /* Release 2015 */,
 				323857CF1B09C04A00571BB2 /* Release 2016 */,
+				3263AFAA1D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -8094,6 +8545,7 @@
 				A3ED9FE917A63E660036CBBF /* Debug 2014 */,
 				A5155E0219F7881600D5D4DC /* Debug 2015 */,
 				323857C41B09C04000571BB2 /* Debug 2016 */,
+				3263AFB71D654B4E002FC311 /* Debug 2017 */,
 				CE787C040F583FC90019C2D7 /* Release 2008 */,
 				CE787C050F583FC90019C2D7 /* Release 2009 */,
 				CE7456E9104CF660000083A6 /* Release 2010 */,
@@ -8103,6 +8555,7 @@
 				A3ED9FF517A63E6F0036CBBF /* Release 2014 */,
 				A5155E0E19F7881D00D5D4DC /* Release 2015 */,
 				323857D01B09C04A00571BB2 /* Release 2016 */,
+				3263AFAB1D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";
@@ -8119,6 +8572,7 @@
 				A3ED9FEA17A63E660036CBBF /* Debug 2014 */,
 				A5155E0319F7881600D5D4DC /* Debug 2015 */,
 				323857C51B09C04000571BB2 /* Debug 2016 */,
+				3263AFB81D654B4E002FC311 /* Debug 2017 */,
 				CE787D010F5840830019C2D7 /* Release 2008 */,
 				CE787D020F5840830019C2D7 /* Release 2009 */,
 				CE7456EA104CF660000083A6 /* Release 2010 */,
@@ -8128,6 +8582,7 @@
 				A3ED9FF617A63E6F0036CBBF /* Release 2014 */,
 				A5155E0F19F7881D00D5D4DC /* Release 2015 */,
 				323857D11B09C04A00571BB2 /* Release 2016 */,
+				3263AFAC1D654A98002FC311 /* Release 2017 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 2015";

@@ -26,6 +26,7 @@
 #include <maya/MTime.h>
 #include <maya/MFloatArray.h>
 
+#include <maya/MFnClip.h>
 
 namespace COLLADAMaya
 {
@@ -45,15 +46,19 @@ namespace COLLADAMaya
             struct Part
             {
                 MPlug plug;
+
+				std::vector< std::pair<bool, Step> > stepInterpolation;
                 std::vector<float> values;
                 bool isMatrix, isWanted, isAnimated;
 
-                Part() : isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
-                Part ( const MPlug& plug ) : plug ( plug ), isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
+				std::vector<MObject> animCurves;
+
+				Part() : isMatrix(false), isWanted(false), isAnimated(false) {}
+				Part(const MPlug& plug) : plug(plug), isMatrix(false), isWanted(false), isAnimated(false){}
             };
 
             std::vector<Part> parts;
-
+			
             MObject node;
             CacheNode ( const MObject& node ) : node ( node ) {}
 
@@ -63,6 +68,7 @@ namespace COLLADAMaya
                 parts = a.parts;
                 return *this;
             }
+
         };
 
         /** Map for the cache nodes. */
@@ -108,7 +114,7 @@ namespace COLLADAMaya
          * @param outputs
          * @return bool
          */
-        bool findCachePlug ( const MPlug& plug, std::vector<float>*& inputs, std::vector<float>*& outputs );
+		bool findCachePlug(const MPlug& plug, std::vector<float>*& inputs, std::vector<float>*& outputs, std::vector< std::pair<bool, Step> >*& interpolation);
 
         /**
          * @todo documentation
@@ -148,7 +154,9 @@ namespace COLLADAMaya
         void sampleIKHandle ( const MDagPath& dagPath );
 
         /** Sample all the cached plugs */
-        void samplePlugs();
+		void samplePlugsWithoutClip();
+		void samplePlugsWithClip(MFnClip& clipFn);
+		void samplePlugs();
 
     private:
 

@@ -14,12 +14,14 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaAttributeParser.h"
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaAnimationExporter.h"
 
+#include <maya/MFnAttribute.h>
 #include <maya/MFnLight.h>
 #include <maya/MFnNonAmbientLight.h>
 #include <maya/MFnAmbientLight.h>
@@ -90,16 +92,16 @@ namespace COLLADAMaya
                 // Check if the original instanced element is already exported.
                 SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
                 SceneElement* exportedElement = sceneGraph->findExportedElement ( instancedPath );
-                if ( exportedElement == 0 )
-                {
-                    // Export the original instanced element and push it in the exported scene graph. 
-                    if ( exportLight ( instancedPath ) )
-                    {
-                        SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
-                        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-                        sceneGraph->addExportedElement( instancedSceneElement );
-                    }
-                }
+				if (exportedElement == 0)
+				{
+					// Export the original instanced element and push it in the exported scene graph. 
+					if (exportLight(instancedPath))
+					{
+						SceneElement* instancedSceneElement = sceneGraph->findElement(instancedPath);
+						SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+						sceneGraph->addExportedElement(instancedSceneElement);
+					}
+				}
             }
             else
             {
@@ -256,10 +258,134 @@ namespace COLLADAMaya
 //             light->setDropOff ( (float) spotFn.dropOff ( &status ), animated ); CHECK_MSTATUS(status);
         }
         
+        SceneElement* sceneElement = NULL;
+        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+        sceneElement = sceneGraph->findElement(dagPath);
+        exportExtraAttributes(sceneElement, light);
+
         addLight ( *light );
         delete light;
 
         return true;
+    }
+
+    //---------------------------------------------------------------
+    void LightExporter::exportExtraAttributes(const SceneElement* sceneElement, COLLADASW::Light* light)
+    {
+        class ExtraAttributeExporter : public AttributeParser
+        {
+        public:
+            ExtraAttributeExporter(COLLADASW::Light& light)
+                : mLight(light)
+            {}
+
+        private:
+            COLLADASW::Light& mLight;
+
+        protected:
+			virtual bool onBeforePlug(MPlug & plug) override
+			{
+				MStatus status;
+
+				MObject attr = plug.attribute(&status);
+				if (!status) return false;
+
+                MFnAttribute fnAttr(attr, &status);
+                if (!status) return false;
+
+                MString attrName = fnAttr.name(&status);
+                if (!status) return false;
+
+                bool isDynamic = fnAttr.isDynamic(&status);
+                if (!status) return false;
+
+                if (!isDynamic)
+                    return false;
+
+                bool isHidden = fnAttr.isHidden(&status);
+                if (!status) return false;
+
+                if (isHidden)
+                    return false;
+
+                return true;
+            }
+
+            virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onInteger(MPlug & plug, const MString & name, int value) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onInteger2(MPlug & plug, const MString & name, int value[2]) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onInteger3(MPlug & plug, const MString & name, int value[3]) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onFloat(MPlug & plug, const MString & name, float value) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onDouble(MPlug & plug, const MString & name, double value) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value, "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), value[0], value[1], value[2], value[3], "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onString(MPlug & plug, const MString & name, const MString & value) override
+            {
+				mLight.addExtraTechniqueParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(value.asChar())), "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+
+            virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
+            {
+                // TODO export all possible enum values to be able to re-import them?
+				mLight.addExtraTechniqueEnumParameter(PROFILE_MAYA, name.asChar(), COLLADABU::StringUtils::translateToXML(String(enumName.asChar())), "", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+            }
+        };
+
+        MObject nodeObject = sceneElement->getNode();
+
+        MStatus status;
+        MFnDependencyNode fnNode(nodeObject, &status);
+        if (!status) return;
+
+        ExtraAttributeExporter extraAttributeExporter(*light);
+        AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
     }
 
     // ------------------------------------

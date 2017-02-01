@@ -37,55 +37,81 @@ namespace COLLADAMaya
 		 * @param fnNode Parsed node
 		 * @param parser Object inheriting AttributeParser class and implementing some of the onXXX() methods.
 		 */
-		static MStatus parseAttributes(MFnDependencyNode & fnNode, AttributeParser & parser);
+		static void parseAttributes(MFnDependencyNode & fnNode, AttributeParser & parser);
 
 	protected:
 		/**
-		 * Callback called before parsing an attribute.
-		 * @param fnNode Parsed node.
-		 * @param attribute Parsed attribute.
-		 * @return MStatus::kFailure to skip attribute. MStatus::kSuccess to continue attribute parsing.
+		 * Callback called before parsing a plug.
+		 * @param plug Parsed plug.
+		 * @return false to skip plug. true to continue attribute parsing.
 		 */
-		virtual MStatus onBeforeAttribute	(MFnDependencyNode & fnNode, MObject & attribute)			{ return MS::kSuccess; }
+		virtual bool onBeforePlug(MPlug & plug) { return true; }
 
 		/**
-		 * Callback called after parsing an attribute.
-		 * @param fnNode Parsed node.
-		 * @param attribute Parsed attribute.
+		 * Callback called after parsing a plug.
+		 * @param plug Parsed plug.
 		 */
-		virtual MStatus onAfterAttribute	(MFnDependencyNode & fnNode, MObject & attribute)			{ return MS::kSuccess; }
+		virtual void onAfterPlug(MPlug & plug) { }
 
 		/**
-		 * Callbacks called when parsing an attribute of given type.
+		 * Callbacks called when parsing a plug of given type.
 		 * @param plug Node plug associated to current attribute.
 		 * @param name Current attribute name.
-		 * @param value Current attribute plug value.
+		 * @param value Current plug value.
 		 */
-		virtual MStatus onBoolean			(MPlug & plug, const MString & name, bool value)			{ return MS::kSuccess; }
-		virtual MStatus onByte				(MPlug & plug, const MString & name, char value)			{ return MS::kSuccess; }
-		virtual MStatus onChar				(MPlug & plug, const MString & name, char value)			{ return MS::kSuccess; }
-		virtual MStatus onShort				(MPlug & plug, const MString & name, short value)			{ return MS::kSuccess; }
-		virtual MStatus onShort2			(MPlug & plug, const MString & name, short value[2])		{ return MS::kSuccess; }
-		virtual MStatus onShort3			(MPlug & plug, const MString & name, short value[3])		{ return MS::kSuccess; }
-		virtual MStatus onLong				(MPlug & plug, const MString & name, int value)				{ return MS::kSuccess; }
-		virtual MStatus onLong2				(MPlug & plug, const MString & name, int value[2])			{ return MS::kSuccess; }
-		virtual MStatus onLong3				(MPlug & plug, const MString & name, int value[3])			{ return MS::kSuccess; }
-		virtual MStatus onFloat				(MPlug & plug, const MString & name, float value)			{ return MS::kSuccess; }
-		virtual MStatus onFloat2			(MPlug & plug, const MString & name, float value[2])		{ return MS::kSuccess; }
-		virtual MStatus onFloat3			(MPlug & plug, const MString & name, float value[3])		{ return MS::kSuccess; }
-		virtual MStatus onDouble			(MPlug & plug, const MString & name, double value)			{ return MS::kSuccess; }
-		virtual MStatus onDouble2			(MPlug & plug, const MString & name, double value[2])		{ return MS::kSuccess; }
-		virtual MStatus onDouble3			(MPlug & plug, const MString & name, double value[3])		{ return MS::kSuccess; }
-		virtual MStatus onDouble4			(MPlug & plug, const MString & name, double value[4])		{ return MS::kSuccess; }
-		virtual MStatus onString			(MPlug & plug, const MString & name, const MString & value)	{ return MS::kSuccess; }
+		virtual void onBoolean			    (MPlug & plug, const MString & name, bool value)			                    { }
+		virtual void onByte				    (MPlug & plug, const MString & name, char value)			                    { }
+		virtual void onChar				    (MPlug & plug, const MString & name, char value)			                    { }
+		virtual void onShort			    (MPlug & plug, const MString & name, short value)			                    { }
+		virtual void onShort2			    (MPlug & plug, const MString & name, short value[2])		                    { }
+		virtual void onShort3			    (MPlug & plug, const MString & name, short value[3])		                    { }
+		virtual void onInteger				(MPlug & plug, const MString & name, int value)				                    { }
+		virtual void onInteger2				(MPlug & plug, const MString & name, int value[2])			                    { }
+		virtual void onInteger3				(MPlug & plug, const MString & name, int value[3])			                    { }
+		virtual void onFloat				(MPlug & plug, const MString & name, float value)			                    { }
+		virtual void onFloat2			    (MPlug & plug, const MString & name, float value[2])		                    { }
+		virtual void onFloat3			    (MPlug & plug, const MString & name, float value[3])		                    { }
+		virtual void onDouble			    (MPlug & plug, const MString & name, double value)			                    { }
+		virtual void onDouble2			    (MPlug & plug, const MString & name, double value[2])		                    { }
+		virtual void onDouble3			    (MPlug & plug, const MString & name, double value[3])		                    { }
+		virtual void onDouble4			    (MPlug & plug, const MString & name, double value[4])		                    { }
+		virtual void onString			    (MPlug & plug, const MString & name, const MString & value)	                    { }
+        virtual void onEnum                 (MPlug & plug, const MString & name, int enumValue, const MString & enumName)   { }
+        virtual void onMesh                 (MPlug & plug, const MString & name, MObject & meshObject)                      { }
+        virtual void onConnection           (MPlug & plug, const MString & name, MPlug & externalPlug)                      { }
+        virtual void onCompoundAttribute    (MPlug & plug, const MString & name)                                            { }
+        virtual void onAngle                (MPlug & plug, const MString & name, const MAngle & angle)                      { }
+        virtual void onAngle2               (MPlug & plug, const MString & name, const MAngle angles[2])                    { }
+        virtual void onAngle3               (MPlug & plug, const MString & name, const MAngle angles[3])                    { }
+        virtual void onAngle4               (MPlug & plug, const MString & name, const MAngle angles[4])                    { }
+        virtual void onDistance             (MPlug & plug, const MString & name, const MDistance & distance)                { }
+        virtual void onDistance2            (MPlug & plug, const MString & name, const MDistance distances[2])              { }
+        virtual void onDistance3            (MPlug & plug, const MString & name, const MDistance distances[3])              { }
+        virtual void onDistance4            (MPlug & plug, const MString & name, const MDistance distances[4])              { }
+        virtual void onTime                 (MPlug & plug, const MString & name, MTime & time)                              { }
+        virtual void onMessage              (MPlug & plug, const MString & name)                                            { }
+        virtual void onMatrix               (MPlug & plug, const MString & name, const MMatrix& value)                      { }
 
 	private:
-		MStatus parseAttribute			(MFnDependencyNode & fnNode, MObject & attribute);
-		MStatus parseNumericAttribute	(MFnDependencyNode & fnNode, MObject & attribute);
-		MStatus parseTypedAttribute		(MFnDependencyNode & fnNode, MObject & attribute);
-		MStatus parseNumericData		(MFnDependencyNode & fnNode, MObject & attribute);
-		MStatus parseNumeric			(MPlug plug, MFnNumericData::Type type);
-		MStatus parseStringData			(MFnDependencyNode & fnNode, MObject & attribute);
+		void parsePlug				(MPlug & plug);
+		void parseNumericPlug		(MPlug & plug);
+		void parseTypedPlug			(MPlug & plug);
+		void parseEnumPlug			(MPlug & plug);
+		void parseMessagePlug		(MPlug & plug);
+		void parseMatrixPlug		(MPlug & plug);
+		void parseCompoundPlug		(MPlug & plug);
+		void parseUnitPlug			(MPlug & plug);
+		void parseGenericPlug		(MPlug & plug);
+		void parseLightDataPlug		(MPlug & plug);
+		void parseNumericData		(MPlug & plug);
+		void parseNumeric			(MPlug plug, MFnNumericData::Type type);
+		void parseStringData		(MPlug & plug);
+		void parseMeshData			(MPlug & plug);
+		void parseComponentListData	(MPlug & plug);
+
+		static bool IsNumericCompoundAttribute(const MObject& attribute, MFnNumericData::Type& type);
+
+		friend class AutoOnAfterPlug;
     };
 }
 

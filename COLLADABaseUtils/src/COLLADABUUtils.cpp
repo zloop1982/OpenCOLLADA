@@ -14,6 +14,9 @@
 
 #include <string.h>
 #include <list>
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 namespace COLLADABU
 {
@@ -283,9 +286,10 @@ namespace COLLADABU
 
 		std::list<WideString> paths;
 		size_t offset = WideString::npos;
-		while ((offset = pathString.find_last_of(L"/\\", offset)) != WideString::npos)
+		while ((offset != 0) && (offset = pathString.find_last_of(L"/\\", offset)) != WideString::npos)
 		{
 			paths.push_front(pathString.substr(0, offset + 1));
+			if (offset != 0) --offset;
 		}
 
 		bool pathExists = true;
@@ -326,10 +330,10 @@ namespace COLLADABU
 
 		std::list<String> paths;
 		size_t offset = String::npos;
-		while ((offset = pathString.find_last_of("/\\", offset)) != String::npos)
+		while ((offset != 0) && (offset = pathString.find_last_of("/\\", offset)) != String::npos)
 		{
 			paths.push_front(pathString.substr(0, offset + 1));
-			--offset;
+			if (offset !=0) --offset;
 		}
 
 		bool pathExists = true;
@@ -475,6 +479,25 @@ namespace COLLADABU
 
 		return copystatus;
 	}
+
+    //--------------------------------
+    bool Utils::deleteFile(const String &pathString)
+    {
+        SystemType type = getSystemType();
+
+#ifdef COLLADABU_OS_WIN
+        if (type != WINDOWS)
+            return false;
+        return DeleteFileA(pathString.c_str()) != FALSE;
+#else
+        if (type != POSIX)
+            return false;
+        char command[4097];
+        sprintf(command, "rm -f \"%s\"", pathString.c_str());
+        int status = system(command);
+        return status == 0;
+#endif
+    }
 
 	//--------------------------------
 	bool Utils::fileExistsAndIsReadable( const String &pathString )

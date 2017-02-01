@@ -15,6 +15,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaAnimationClipExporter.h"
+#include "COLLADAMayaExportOptions.h"
 
 namespace COLLADAMaya
 {
@@ -31,7 +32,25 @@ namespace COLLADAMaya
         for ( ; clipIter!= animationClips->end(); ++clipIter )
         {
             AnimationClip* animationClip = *clipIter;
-            addAnimationClip ( *animationClip->colladaClip );
+			
+			MarkersList::iterator markerIter = animationClip->markers.begin();
+			for (; markerIter != animationClip->markers.end(); ++markerIter)
+			{
+				COLLADASW::MarkersSW swMarkerElement;
+				
+				COLLADASW::WideString markerName;
+				if (ExportOptions::exportEncodedNames())
+					markerName = COLLADABU::StringUtils::checkNCNameWithUCS2Encoding(markerIter->ID.asWChar(), true);
+				else
+					markerName = COLLADABU::StringUtils::checkNCName(markerIter->ID.asWChar(), true);
+
+				swMarkerElement.ID = COLLADABU::StringUtils::wideString2utf8String(markerName);
+				swMarkerElement.time = markerIter->time;
+
+				animationClip->colladaClip->getMarkersList().push_back(swMarkerElement);
+			}
+
+			addAnimationClip ( *animationClip->colladaClip);
         }
 
         closeLibrary();

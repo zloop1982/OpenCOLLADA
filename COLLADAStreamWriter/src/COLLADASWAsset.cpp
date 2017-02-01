@@ -24,11 +24,10 @@ namespace COLLADASW
             mUpAxisType ( NONE )
     {}
 
-
     //---------------------------------------------------------------
     void Asset::add()
     {
-        TagCloser asset = mSW->openElement ( CSWC::CSW_ELEMENT_ASSET );
+		TagCloser asset = mSW->openElement(CSWC::CSW_ELEMENT_ASSET);
 
         // add contributor only if at least one attribute is not empty
 
@@ -121,8 +120,9 @@ namespace COLLADASW
             mSW->appendTextElement ( CSWC::CSW_ELEMENT_UP_AXIS, CSWC::CSW_TEXT_Z_UP );
         }
 
-        asset.close();
+		addExtra();
 
+		asset.close();
     }
 
 } //namespace COLLADASW

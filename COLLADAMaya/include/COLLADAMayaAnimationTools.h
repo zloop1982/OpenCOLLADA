@@ -65,6 +65,13 @@ namespace COLLADAMaya
      * Organizes the data of an animation clip.
      */
 
+	struct Markers
+	{
+		float time;
+		MString ID;
+	};
+	typedef std::vector<Markers> MarkersList;
+
     class AnimationClip
     {
 
@@ -80,8 +87,14 @@ namespace COLLADAMaya
         MObject characterNode;
 
         COLLADASW::ColladaAnimationClip* colladaClip;
+
+
+		MarkersList markers;
+	
+
         MObjectArray animCurves;
         MPlugArray plugs;
+		MObject clipFn;
 
         /** Returns the plug */
         int findPlug ( const MPlug& p );
@@ -91,6 +104,11 @@ namespace COLLADAMaya
         {
             return colladaClip->getAnimationClipId();
         }
+
+		const String& getClipSourceId() const
+		{
+			return colladaClip->getAnimationClipSourceId();
+		}
 
     };
 

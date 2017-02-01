@@ -35,6 +35,7 @@ namespace COLLADAMaya
     class ImageExporter;
     class GeometryExporter;
 	class PhysicsExporter;
+    class PhysXExporter;
     class VisualSceneExporter;
 	class PhysicsSceneExporter;
     class AnimationExporter;
@@ -44,16 +45,27 @@ namespace COLLADAMaya
     class LightExporter;
     class LightProbeExporter;
     class CameraExporter;
+	class LODExporter;
 
 
     typedef std::map<String, String> StringToStringMap;
 
+    enum PASS
+    {
+        VISUAL_SCENE_PASS = 0,
+        FIRST_LOD_PASS,
+        SECOND_LOD_PASS,
+        DEFAULT = VISUAL_SCENE_PASS
+    };
 
     /**
      * The main exporter class. This class exports all data of the scene.
      */
     class DocumentExporter
     {
+	public :
+
+		PASS mExportPass;
 
     private:
 
@@ -78,6 +90,9 @@ namespace COLLADAMaya
 		/** Exports the geometry. */
 		PhysicsExporter* mPhysicsExporter;
 
+        /** Exports PhysX. */
+        PhysXExporter* mPhysXExporter;
+
         /** Exports the visual scene. */
         VisualSceneExporter* mVisualSceneExporter;
 
@@ -101,6 +116,9 @@ namespace COLLADAMaya
 
         /** Exports the cameras. */
         CameraExporter* mCameraExporter;
+
+		/** Exports LODs. */
+		LODExporter*	mLODExporter;
 
         /*
         CAnimCache* animCache;
@@ -222,6 +240,12 @@ namespace COLLADAMaya
         PhysicsExporter* getPhysicsExporter();
 
         /**
+         * Returns a pointer to the PhysX exporter.
+         * @return PhysXExporter* Pointer to the PhysX exporter
+         */
+        PhysXExporter* getPhysXExporter();
+
+        /**
 		* Returns a pointer to the physics scene exporter.
 		* @return PhysicsSceneExporter* Pointer to the physics scene exporter
 		*/
@@ -251,6 +275,12 @@ namespace COLLADAMaya
         */
         LightExporter* getLightExporter();
 
+		/**
+		* Returns a pointer to the LOD exporter.
+		* @return LODExporter* Pointer to the lod exporter
+		*/
+		LODExporter* getLODExporter();
+
         /**
         * Returns a pointer to the light probe exporter.
         * @return LightProbeExporter* Pointer to the light probe exporter
@@ -279,6 +309,13 @@ namespace COLLADAMaya
          * @return MString The converted collada id.
          */
 		String dagPathToColladaId(const MDagPath& dagPath, bool removeFirstNamespace = false);
+
+		/**
+		 * Make a unique COLLADA SID from a dagPath.
+		 * @param dagPath The dag path to convert.
+		 * @return MString The converted COLLADA SID.
+		 */
+		String dagPathToColladaSid(const MDagPath & dagPath);
 
         /**
          * Get a COLLADA suitable node name from a DAG path

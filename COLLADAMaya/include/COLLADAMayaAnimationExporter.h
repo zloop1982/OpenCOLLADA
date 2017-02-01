@@ -26,12 +26,16 @@
 #include "COLLADAMayaSyntax.h"
 
 #include <maya/MFnAnimCurve.h>
+#include <maya/MEulerRotation.h>
 
 #include "COLLADASWLibraryAnimations.h"
 #include "COLLADASWSource.h"
 
 #include "COLLADABUIDList.h"
 #include <maya/MFnClip.h>
+
+#include "COLLADAMayaAttributeParser.h"
+#include <maya/MFnAttribute.h>
 
 
 namespace COLLADAMaya
@@ -194,11 +198,13 @@ namespace COLLADAMaya
             MPlug& plug,
             const String& targetSubId,
             const SampleType& sampleType,
+			const MEulerRotation::RotationOrder& order = MEulerRotation::kXYZ,
             const String* parameters = EMPTY_PARAMETER,
             const bool convertUnits = false, 
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
-            ConversionFunctor* conversion = NULL );
+            ConversionFunctor* conversion = NULL
+			);
 
         /**
          * Adds the plug with the given sample type to the list of animations,
@@ -217,6 +223,7 @@ namespace COLLADAMaya
             MPlug& plug,
             const String& targetSubId,
             const uint sampleType,
+			const MEulerRotation::RotationOrder& order = MEulerRotation::kXYZ,
             const String* parameters = EMPTY_PARAMETER,
             const bool convertUnits = false, 
             const int arrayElement = -1,
@@ -405,6 +412,20 @@ namespace COLLADAMaya
          */
         bool curvesAreEqual ( const AnimationCurveList &curves );
 
+		/**
+		* Verify that there is, in fact, an animation in this curve.
+		* @param curve.
+		* @return bool True, if there is no animation.
+		*/
+		bool BezierAllKeysAreEqual(AnimationCurve* curve);
+
+
+		/** Returns the tolerance value for double value comparison. */
+		const double getTolerance() const
+		{
+			return mDocumentExporter->getTolerance();
+		}
+
         /**
          * Creates a animation curve of an collada channel.
          * @param animatedElement The animated element.
@@ -525,6 +546,8 @@ namespace COLLADAMaya
                                     const std::vector<float>& input,
                                     const std::vector<float>& output,
                                     const std::vector<String>& interpolations,
+									const std::vector<String>& stepInterpolations,
+									const std::vector<String>& orders,
                                     const std::vector<float>& inTangents,
                                     const std::vector<float>& outTangents,
                                     const std::vector<float>& tcbs,
@@ -587,7 +610,9 @@ namespace COLLADAMaya
          * @param interpolations List of export values.
          */
         void writeInterpolationSource ( const String sourceId,
-                                         const std::vector<String> interpolations );
+                                         const std::vector<String> interpolations,
+										 const std::vector<String> stepInterpolations,
+										 const std::vector<String> orders );
 
         /**
          * Writes a in tangent source in the collada document.
@@ -663,10 +688,95 @@ namespace COLLADAMaya
 
 		void saveParamInstancedClip(std::vector<bool>& OriginalValues);
 		void restoreParamInstancedClip(std::vector<bool>& OriginalValues);
-		void createAnimationClip(MFnClip& currentMfnclip);
+		void createAnimationClip(MObject& ClipObject);
 
 
 		void generateSamplingFunctionForClip(MFnClip& clipFn);
+
+		static const String getNameOfStepInterpolation(const Step & type);
+		static const String getNameOfOrder(const MEulerRotation::RotationOrder & order);
+
+
+		class ExtraAttributeExporter : public AttributeParser
+		{
+
+			public:
+				ExtraAttributeExporter(COLLADASW::ColladaAnimationClip & clip)
+					: colladaClip(clip)
+				{}
+
+				const MarkersList& GetMarkersList() { return markers; }
+
+			private:
+
+
+				float markerTime;
+				MarkersList markers;
+
+				COLLADASW::ColladaAnimationClip& colladaClip;
+
+			protected:
+				virtual bool onBeforePlug(MPlug & plug) override
+				{
+					MStatus status;
+
+					MObject attr = plug.attribute(&status);
+					if (!status) return false;
+
+					MFnAttribute fnAttr(attr, &status);
+					if (!status) return false;
+
+					MString attrName = fnAttr.name(&status);
+					if (!status) return false;
+
+					bool isDynamic = fnAttr.isDynamic(&status);
+					if (!status) return false;
+
+					if (!isDynamic)
+						return false;
+
+					bool isHidden = fnAttr.isHidden(&status);
+					if (!status) return false;
+
+					if (isHidden)
+						return false;
+
+					return true;
+				}
+
+				
+				virtual void onString(MPlug & plug, const MString & name, const MString & value) override
+				{
+					MStatus status;
+					MPlug parentplug = plug.parent(&status);
+					MString parentplugName = parentplug.name(&status);
+
+					std::size_t found = String(parentplugName.asChar()).find("Markers");
+					if (found != std::string::npos)
+					{
+						Markers markersElement;
+						markersElement.ID = value;
+						markersElement.time = markerTime;
+						markers.push_back(markersElement);
+					}
+				}
+
+				virtual void onFloat(MPlug & plug, const MString & name, float value) override
+				{
+					MStatus status;
+					MPlug parentplug = plug.parent(&status);
+					MString parentplugName = parentplug.name(&status);
+
+					std::size_t found = String(parentplugName.asChar()).find("Markers");
+					if (found != std::string::npos)
+					{
+						markerTime = value;
+					}
+				}
+
+		};
+
+
     };
 
 }

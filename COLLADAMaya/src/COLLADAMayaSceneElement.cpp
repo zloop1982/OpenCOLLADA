@@ -43,7 +43,7 @@ namespace COLLADAMaya
     {}
 
     //---------------------------------------------------------------
-    const MDagPath SceneElement::getPath() const
+    const MDagPath & SceneElement::getPath() const
     {
         return mDagPath;
     }
@@ -87,28 +87,39 @@ namespace COLLADAMaya
         return mNodeName;
     }
 
-    // -------------------------------------------
-    const SceneElement::Type& SceneElement::getType() const
-    {
-        if ( mType == UNDETERMINED ) mType = determineType();
+	const SceneElement::Type& SceneElement::getType() const
+	{
+		if (mType == UNDETERMINED) mType = determineType();
 
-        return mType;
-    }
+		return mType;
+	}
 
-    // -------------------------------------------
-    const SceneElement::Type SceneElement::determineType() const
-    {
-        if ( mType != UNDETERMINED ) return mType;
+
+	const SceneElement::Type SceneElement::determineType() const
+	{
+		if (mType != UNDETERMINED) return mType;
 
         MFn::Type mayaType = mDagPath.apiType();
 		
 		MStatus status;
 		MObject node = mDagPath.node();
-		MFnDependencyNode shaderNode(node, &status);
-		MString shaderNodeTypeName = shaderNode.typeName();
+		MFnDependencyNode fnNode(node, &status);
+		MString nodeTypeName = fnNode.typeName();
 
-		if ((shaderNodeTypeName == BULLET_PHYSIKS_NODE))
+		if (nodeTypeName == BULLET_PHYSIKS_NODE)
 			return PHYSIK_BULLET;
+
+        if (nodeTypeName == NX_RIGID_SOLVER)
+            return PHYSX_RIGID_SOLVER;
+
+        if (nodeTypeName == NX_RIGID_BODY)
+            return PHYSX_RIGID_BODY;
+
+        if (nodeTypeName == NX_RIGID_CONSTRAINT)
+            return PHYSX_RIGID_CONSTRAINT;
+
+        if (nodeTypeName == NX_SHAPE)
+            return PHYSX_SHAPE;
 
         bool isLightProbe = false;
         DagHelper::getPlugValue(node, ATTR_LIGHT_PROBE, isLightProbe);
@@ -181,6 +192,10 @@ namespace COLLADAMaya
         case MFn::kTransform:
             return TRANSFORM;
             break;
+
+		case MFn::kLodGroup:
+			return LOD;
+			break;
 
         default:
             return UNKNOWN;

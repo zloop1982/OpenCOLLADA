@@ -22,12 +22,23 @@ namespace COLLADASW
     typedef std::vector<String> AnimationInstances;
 
 
+	/** Animation Markers */
+	struct MarkersSW
+	{
+		float time;
+		String ID;
+	};
+
+	typedef std::vector<MarkersSW> MarkersList;
+	
+
+
 	class ColladaAnimationClip: public BaseExtraTechnique
     {
 
     public:
-        ColladaAnimationClip ( const String& animationClipId = ElementWriter::EMPTY_STRING );
-        ColladaAnimationClip ( const String& animationClipId, float& startTime, float& endTime );
+		ColladaAnimationClip(const String& animationClipId = ElementWriter::EMPTY_STRING, const String& animationClipSourceId = ElementWriter::EMPTY_STRING);
+		ColladaAnimationClip(const String& animationClipId, const String& animationClipSourceId, float& startTime, float& endTime);
         ColladaAnimationClip ( float& startTime, float& endTime );
 
         /** Returns a reference to then image id*/
@@ -35,6 +46,16 @@ namespace COLLADASW
         {
             return mAnimationClipId;
         }
+
+        const String& getName() const
+        {
+            return mName;
+        }
+
+		const String& getAnimationClipSourceId() const
+		{
+			return mAnimationClipSourceId;
+		}
 
         /** Retrieves the start time marker position for this animation clip.
         When using the animation clip, all the animation curves will need
@@ -80,6 +101,12 @@ namespace COLLADASW
             return mInstancedAnimations;
         }
 
+		/** Returns the list with the markers animations. */
+		MarkersList& getMarkersList()
+		{
+			return markers;
+		}
+
 		bool isAnimationEvent() const
 		{
 			return mIsAnimationEvent;
@@ -90,10 +117,16 @@ namespace COLLADASW
 			mIsAnimationEvent = val;
 		}
 
+		
+
     private:
 
         /** The id of the current animation clip. */
         String mAnimationClipId;
+		String mAnimationClipSourceId;
+
+        /** The name of the current clip, optional */
+        String mName;
 
         /** The start time of the current clip. */
         float mStartTime;
@@ -104,6 +137,9 @@ namespace COLLADASW
         /** The list of animations, which use this clip. */
         AnimationInstances mInstancedAnimations;
 		
+		/** list of Event attached to this clip */
+		MarkersList markers;
+
 		/** Is this animation clip is used as EventAnimation*/
 		bool mIsAnimationEvent;
     };

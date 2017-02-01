@@ -37,6 +37,15 @@ namespace COLLADAMaya
         /** General export options  */
         /****************************/
 
+		/** True, if we want to encode xsd:name with UCS2 to have valid xml. */
+		static bool mEncodedNames;
+
+		/** DAE ModelPathName when exporting into two separate files */
+		static MString mDAEmodelName;
+
+		/** True, if we want to export LOD from LODGroup. */
+		static bool mLOD;
+
         /** True, if we should a write transform matrix. */
         static bool mBakeTransforms;
 
@@ -62,11 +71,16 @@ namespace COLLADAMaya
         /**     Filter export       */
         /****************************/
 		static bool mExportPhysics;
+        static bool mExportConvexMeshGeometries;
         static bool mExportPolygonMeshes;
         static bool mExportLights;
         static bool mExportCameras;
-        static bool mExportJointsAndSkin;
-        static bool mExportAnimations;
+		static bool mExportJoints;
+		static bool mExportSkin;
+		static bool mExportAnimationsOnly;
+		static bool mExportSeparateFile;
+		static bool mExportAnimations;
+		static bool mExportOptimizedBezierAnimations;
         static bool mExportInvisibleNodes;
         static bool mExportDefaultCameras;
         static bool mExportTexCoords;
@@ -108,6 +122,9 @@ namespace COLLADAMaya
         /****************************/
         /** General export options  */
         /****************************/
+		static MString getDAEmodelName();
+		static bool exportLOD();
+		static bool exportEncodedNames();
 
         /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
         primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */
@@ -131,11 +148,17 @@ namespace COLLADAMaya
         /****************************/
 
 		static bool exportPhysics();
+        static void setExportPhysics(bool value);
+        static bool exportConvexMeshGeometries();
         static bool exportPolygonMeshes();
         static bool exportLights();
         static bool exportCameras();
-        static bool exportJointsAndSkin();
+        static bool exportJoints();
+		static bool exportSkin();
+		static bool exportAnimationsOnly();
+		static bool exportSeparateFile();
         static bool exportAnimations();
+		static bool exportOptimizedBezierAnimations();
         static bool exportInvisibleNodes();
         static bool exportDefaultCameras();
         static bool exportTexCoords();

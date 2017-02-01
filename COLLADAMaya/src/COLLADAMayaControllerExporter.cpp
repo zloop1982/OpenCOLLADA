@@ -203,7 +203,7 @@ namespace COLLADAMaya
             ControllerStackItem* item = stack[i];
             if ( item->isSkin )
             {
-                if ( ExportOptions::exportJointsAndSkin() && !alreadyHasSkin )
+				if (ExportOptions::exportJoints() && !alreadyHasSkin)
                 {
                     // Correctly avoid chained joint-clusters: only export the first
                     // joint cluster which exports the subsequent joint-clusters with it.
@@ -387,7 +387,7 @@ namespace COLLADAMaya
 
             String subId = colladaControllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX;
             AnimationExporter* animExport = mDocumentExporter->getAnimationExporter();
-            animExport->addPlugAnimation( weightPlug, subId, kSingle, XY_PARAMETERS, false, ( int ) j );
+			animExport->addPlugAnimation(weightPlug, subId, kSingle, MEulerRotation::kXYZ, XY_PARAMETERS, false, (int)j);
         }
 
         // Write the controller data into the COLLADA document
@@ -418,6 +418,34 @@ namespace COLLADAMaya
         uint componentCount = componentListFn.length ( &status ); CHECK_STAT ( status );
         if ( componentCount == 0 ) return ;
     }
+
+	static SceneElement* searchJointRootElement(SceneElement* sceneElement)
+	{
+		bool sceneElementHasJoint = false;
+		bool sceneParentElementHasJoint = false;
+
+		const MDagPath dagPath = sceneElement->getPath();
+		if (dagPath.hasFn(MFn::kJoint))
+			sceneElementHasJoint = true;
+
+		if (sceneElement->getParentCount())
+		{
+			const MDagPath dagParentPath = sceneElement->getParent()->getPath();
+			if (dagParentPath.hasFn(MFn::kJoint))
+				sceneParentElementHasJoint = true;
+		}
+
+		if (sceneElementHasJoint && ((sceneElement->getParentCount() && !sceneParentElementHasJoint) || !sceneElement->getParentCount())) return sceneElement;
+
+		for (uint i = 0; i<sceneElement->getParentCount(); ++i)
+		{
+			SceneElement* parent = sceneElement->getParent(i);
+			String parentName = parent->getNodeName();
+			if ((parent = searchJointRootElement(parent)) != NULL) return parent;
+		}
+
+		return NULL;
+	}
 
     //------------------------------------------------------
     void ControllerExporter::exportSkinController(
@@ -515,7 +543,9 @@ namespace COLLADAMaya
         // Set the joint entry into the other scene element, which use this joints.
         MDagPathArray influences = skinController.getInfluences();
         unsigned int numInfluences = influences.length();
-        for ( unsigned int i=0; i<numInfluences; ++i )
+
+		SceneElement* JointRootElement;
+		for ( unsigned int i=0; i<numInfluences; ++i )
         {
             // Get the scene element.
             MDagPath skeletonPath = influences [i];
@@ -527,7 +557,21 @@ namespace COLLADAMaya
 
             // Get the uri of the current scene
             COLLADASW::URI skeletonUri ( visualSceneExporter->getSceneElementURI ( sceneElement, colladaNodeId ) );
-            sceneElement->addSkeletonURI ( skeletonUri );
+
+
+			bool result = false;
+			for (unsigned int i = 0; i < numInfluences; ++i)
+			{
+				// Get the scene element.
+				MDagPath skeletonPath = influences[i];
+				if (sceneElement->containsParentElement(skeletonPath))
+				{
+					result = true;
+					break;
+				}
+			}
+			            
+			sceneElement->addSkeletonURI(skeletonUri);
 
             // Set the id on the other instanced nodes.
             bool isInstanced = targetDagPath.isInstanced ();
@@ -537,13 +581,19 @@ namespace COLLADAMaya
             for (uint i=0; i<pathes.length(); ++i)
             {
                 SceneElement* foundElement = mDocumentExporter->getSceneGraph()->findElement ( pathes[i] );
-                if ( foundElement != NULL )
-                    foundElement->addSkeletonURI ( skeletonUri );
+				if (foundElement != NULL && !result)
+				{
+					
+					JointRootElement = searchJointRootElement(sceneElement);
+					COLLADASW::URI skeletonRootUri(visualSceneExporter->getSceneElementURI(JointRootElement));
+					foundElement->addSkeletonURI(skeletonRootUri);
+				}
+                    
             }
         }
 
         // Gather the bind matrices and write them as the bind poses in the target controller object.
-        gatherBindMatrices ( &skinController, controllerNode );
+		gatherBindMatrices(&skinController, controllerNode, JointRootElement);
 
         // Collect the vertex weights into the collada skin controller.
         collectVertexWeights ( &skinController, controllerNode, outputShape, weightFilters, clusterIndex, numInfluences );
@@ -552,7 +602,8 @@ namespace COLLADAMaya
         createJoints ( &skinController );
 
         // Write the data into the collada document.
-        writeSkinController ( skinTarget, skinController );
+		if (!((ExportOptions::exportAnimations()) && (ExportOptions::exportJoints() && !ExportOptions::exportSkin())))
+			writeSkinController ( skinTarget, skinController );
 
     }
 
@@ -686,21 +737,78 @@ namespace COLLADAMaya
         }
     }
 
+
+	
+
+	static SceneElement* searchRootElement(SceneElement* sceneElement)
+	{
+		if (!sceneElement->getParentCount()) return sceneElement;
+
+		for (uint i = 0; i<sceneElement->getParentCount(); ++i)
+		{
+			SceneElement* parent = sceneElement->getParent(i);
+			String parentName = parent->getNodeName();
+			if ( (parent = searchRootElement(parent)) != NULL) return parent;
+		}
+		
+		return NULL;
+	}
+
+	static void AddElementToInfluences(MDagPathArray& influences, SceneElement* sceneElement)
+	{
+		bool found = false;
+		for (uint i = 0; i < influences.length(); i++)
+		{
+			if (sceneElement->getPath() == influences[i])
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			if (sceneElement->getChildCount() > 0)
+			{
+				const MDagPath dagPath = sceneElement->getPath();
+				if (dagPath.hasFn(MFn::kJoint))
+					influences.append(sceneElement->getPath());
+			}
+				
+		}
+			
+		
+		for (uint i = 0; i<sceneElement->getChildCount(); ++i)
+		{
+			SceneElement* childElement = sceneElement->getChild(i);
+			AddElementToInfluences(influences, childElement);
+		}
+	}
+
     //------------------------------------------------------
     void ControllerExporter::gatherBindMatrices(
         SkinController* skinController,
-        const MObject& controllerNode )
+        const MObject& controllerNode,
+		SceneElement* UpperSceneNode)
     {
         // The list of joints
         MDagPathArray& influences = skinController->getInfluences();
 
-        // Request a change in capacity
-        uint numInfluences = influences.length();
-        std::vector<MMatrix>& bindPoses = skinController->getBindPoses();
-        bindPoses.reserve(numInfluences);
+		if (influences.length() > 0)
+		{
+			// Retrieve Root
+			SceneElement* sceneElement = mDocumentExporter->getSceneGraph()->findElement(influences[0]);
 
-        // Gather the bind matrices
-        for (uint i = 0; i < numInfluences; ++i)
+			// Parse all childs from Root and add them into influences if not present into.
+			AddElementToInfluences(influences, UpperSceneNode);
+		}
+
+		// Request a change in capacity
+		uint numInfluences = influences.length();
+		std::vector<MMatrix>& bindPoses = skinController->getBindPoses();
+		bindPoses.reserve(numInfluences);
+		
+		for (uint i = 0; i < numInfluences; ++i)
         {
             MObject influence = influences[i].node();
             MMatrix mayaBindPoseMatrix = DagHelper::getBindPoseInverse(controllerNode, influence);
@@ -725,7 +833,7 @@ namespace COLLADAMaya
             MDagPath dagPath = influences[i];
 
             SkinControllerJoint &joint = joints[i];
-            joint.first = mDocumentExporter->dagPathToColladaId ( dagPath );
+            joint.first = mDocumentExporter->dagPathToColladaSid ( dagPath );
             joint.second = skinController->getBindPoses()[i];
         }
     }

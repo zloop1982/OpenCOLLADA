@@ -18,6 +18,7 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaPhysicsExporter.h"
+#include "COLLADAMayaPhysXExporter.h"
 #include "COLLADAMayaVisualSceneExporter.h"
 #include "COLLADAMayaPhysicsSceneExporter.h"
 #include "COLLADAMayaEffectExporter.h"
@@ -28,6 +29,7 @@
 #include "COLLADAMayaAnimationSampleCache.h"
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaLightExporter.h"
+#include "COLLADAMayaLODExporter.h"
 #include "COLLADAMayaLightProbeExporter.h"
 #include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaDagHelper.h"
@@ -36,6 +38,8 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaReferenceManager.h"
+
+#include "COLLADABUVersionInfo.h"
 
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
@@ -66,14 +70,17 @@ namespace COLLADAMaya
             , mGeometryExporter ( NULL )
             , mVisualSceneExporter ( NULL )
 			, mPhysicsSceneExporter(NULL)
+            , mPhysXExporter(NULL)
             , mAnimationExporter ( NULL )
             , mAnimationClipExporter ( NULL )
             , mControllerExporter ( NULL )
             , mLightExporter ( NULL )
+			, mLODExporter ( NULL )
             , mLightProbeExporter( NULL )
             , mCameraExporter ( NULL )
             , mSceneId ( "MayaScene" )
             , mDigitTolerance (FLOAT_TOLERANCE)
+			, mExportPass(VISUAL_SCENE_PASS)
     {
         if ( ExportOptions::doublePrecision () )
         {
@@ -112,12 +119,14 @@ namespace COLLADAMaya
         mImageExporter = new ImageExporter ( &mStreamWriter );
         mGeometryExporter = new GeometryExporter ( &mStreamWriter, this );
 		mPhysicsExporter = new PhysicsExporter(&mStreamWriter, this);
+        mPhysXExporter = new PhysXExporter(mStreamWriter, *this);
         mVisualSceneExporter = new VisualSceneExporter ( &mStreamWriter, this, mSceneId );
 		mPhysicsSceneExporter = new PhysicsSceneExporter(&mStreamWriter, this, mSceneId);
         mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
         mControllerExporter = new ControllerExporter ( &mStreamWriter, this );
         mLightExporter = new LightExporter ( &mStreamWriter, this );
+		mLODExporter = new LODExporter(&mStreamWriter, this);
         mLightProbeExporter = new LightProbeExporter(&mStreamWriter, this);
         mCameraExporter = new CameraExporter ( &mStreamWriter, this );
     }
@@ -133,10 +142,12 @@ namespace COLLADAMaya
         delete mGeometryExporter;
         delete mVisualSceneExporter;
 		delete mPhysicsSceneExporter;
+        delete mPhysXExporter;
         delete mAnimationExporter;
         delete mAnimationClipExporter;
         delete mControllerExporter;
         delete mLightExporter;
+		delete mLODExporter;
         delete mLightProbeExporter;
         delete mCameraExporter;
     }
@@ -207,46 +218,65 @@ namespace COLLADAMaya
 
             if ( !ExportOptions::exportMaterialsOnly () )
             {
-                // Start by caching the expressions that will be sampled
-                mSceneGraph->sampleAnimationExpressions();
-
-                // Export the lights.
-                mLightExporter->exportLights();
-
-                // Export the cameras.
-                mCameraExporter->exportCameras();
-
-                // Export the material URLs and get the material list
-                MaterialMap* materialMap = mMaterialExporter->exportMaterials();
-
-                // Export the effects (materials)
-                const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
-
-                // Export the images
-                mImageExporter->exportImages ( imageMap );
-
-                // Export the controllers. Must be done before the geometries, to decide, which
-                // geometries have to be exported (for example, if the controller need an invisible 
-                // geometry, we also have to export it).
-                mControllerExporter->exportControllers();
-
-                // Export the geometries
-                mGeometryExporter->exportGeometries();
-
-				// Export Physics
-				mPhysicsExporter->exportAllPhysics();
-
+				// Start by caching the expressions that will be sampled
+				mSceneGraph->sampleAnimationExpressions();
 				
-				// Export the physics scene
-				bool physicsSceneExported = mPhysicsSceneExporter->exportPhysicsScenes();
+				if (!ExportOptions::exportAnimations() || ExportOptions::exportPolygonMeshes())
+				{
+					// Export the lights.
+					mLightExporter->exportLights();
+
+					// Export the cameras.
+					mCameraExporter->exportCameras();
+				
+					// Export the material URLs and get the material list
+					MaterialMap* materialMap = mMaterialExporter->exportMaterials();
+
+					// Export the effects (materials)
+					const ImageMap* imageMap = mEffectExporter->exportEffects(materialMap);
+
+					// Export the images
+					mImageExporter->exportImages(imageMap);
+				}
+				
+				// Export the controllers. Must be done before the geometries, to decide, which
+				// geometries have to be exported (for example, if the controller need an invisible 
+				// geometry, we also have to export it).
+				mControllerExporter->exportControllers();
+
+				// Don't export Physics if required PhysX plugin is not loaded
+				if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
+					MGlobal::displayError(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
+					MGlobal::displayError(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
+					ExportOptions::setExportPhysics(false);
+				}
+
+				// Export PhysX to XML before exporting geometries
+				if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
+					// Don't try to export Physics if xml export has failed
+					ExportOptions::setExportPhysics(false);
+					MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
+				}
+
+				// Export the geometries
+				mGeometryExporter->exportGeometries();
+
+				// Export the LOD
+				mLODExporter->exportLODs(mVisualSceneExporter);
+
+				bool physicsSceneExported = false;
+				if (ExportOptions::exportPhysics()) {
+					// Export PhysX
+					physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
+				}
 
 
 				saveParamClip();
 
-                // Export the visual scene
-                bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
+				// Export the visual scene
+				bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
 
-                // Export the animations
+				// Export the animations
 				if (ExportOptions::exportAnimations())
 				{
 					const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
@@ -257,11 +287,12 @@ namespace COLLADAMaya
 
 				restoreParamClip();
 
-                // Export the scene
-                exportScene(visualSceneExported, physicsSceneExported);
+				// Export the scene
+				exportScene(visualSceneExported, physicsSceneExported);
 
-                // Export the light probes.
-                mLightProbeExporter->exportLightProbes();
+				// Export the light probes.
+				mLightProbeExporter->exportLightProbes();
+               
             }
             else
             {
@@ -280,9 +311,9 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void DocumentExporter::exportAsset()
+	void DocumentExporter::exportAsset()
     {
-        COLLADASW::Asset asset ( &mStreamWriter );
+		COLLADASW::Asset asset(&mStreamWriter);
 
         // Add contributor information
         // Set the author
@@ -306,26 +337,40 @@ namespace COLLADAMaya
                 sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
             asset.getContributor().mSourceData = sourceFileUri.getURIString();
         }
+		
+		std::size_t foundLast = COLLADABU::CURRENT_REVISION.find_last_of(".");
+		std::size_t foundFirst = COLLADABU::CURRENT_REVISION.find_first_of(".");
+		
+		String versionMajor = COLLADABU::CURRENT_REVISION.substr(0, foundFirst);
+		String versionMinor = COLLADABU::CURRENT_REVISION.substr(foundFirst + 1, foundLast - foundFirst -1 );
 
-        asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();
+		asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar() +
+			(COLLADABU::CURRENT_REVISION.empty() ? "" : String(";  ") + String("Version: ") + versionMajor + "." + versionMinor) +
+			(COLLADABU::CURRENT_REVISION.empty() ? "" : String(";  ") + String("Revision: ") + COLLADABU::CURRENT_REVISION.substr(foundLast + 1));
 		
         // comments
 		MString optstr = MString("\n\t\t\tColladaMaya export options: ")
 			+ "\n\t\t\tbakeTransforms=" + ExportOptions::bakeTransforms()
 			+ ";relativePaths=" + ExportOptions::relativePaths()
-			+ ";preserveSourceTree=" + ExportOptions::preserveSourceTree() 
-            + ";copyTextures=" + ExportOptions::copyTextures() 
-            + ";exportTriangles=" + ExportOptions::exportTriangles() 
-            + ";exportCgfxFileReferences=" + ExportOptions::exportCgfxFileReferences() 
-            + ";\n\t\t\tisSampling=" + ExportOptions::isSampling() 
-            + ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
-            + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() 
+			+ ";preserveSourceTree=" + ExportOptions::preserveSourceTree()
+			+ ";copyTextures=" + ExportOptions::copyTextures()
+			+ ";exportTriangles=" + ExportOptions::exportTriangles()
+			+ ";exportCgfxFileReferences=" + ExportOptions::exportCgfxFileReferences()
+			+ ";\n\t\t\tisSampling=" + ExportOptions::isSampling()
+			+ ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
+			+ ";removeStaticCurves=" + ExportOptions::removeStaticCurves()
 			+ ";exportPhysics=" + ExportOptions::exportPhysics()
+            + ";exportConvexMeshGeometries=" + ExportOptions::exportConvexMeshGeometries()
             + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() 
             + ";exportLights=" + ExportOptions::exportLights() 
             + ";\n\t\t\texportCameras=" + ExportOptions::exportCameras() 
-            + ";exportJointsAndSkin=" + ExportOptions::exportJointsAndSkin() 
+			+ ";exportAnimationsOnly=" + ExportOptions::exportAnimationsOnly()
+			+ ";exportSeparateFile=" + ExportOptions::exportSeparateFile()
+			+ ";modelNameDAE=" + ExportOptions::getDAEmodelName()
+            + ";exportJoints=" + ExportOptions::exportJoints() 
+			+ ";exportSkin=" + ExportOptions::exportSkin()
             + ";exportAnimations=" + ExportOptions::exportAnimations()
+            + ";exportOptimizedBezierAnimation=" + ExportOptions::exportOptimizedBezierAnimations()
             + ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
             + ";exportDefaultCameras=" + ExportOptions::exportDefaultCameras()
             + ";\n\t\t\texportTexCoords=" + ExportOptions::exportTexCoords()
@@ -342,6 +387,7 @@ namespace COLLADAMaya
             + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() 
             + ";cameraXFov=" + ExportOptions::cameraXFov() 
             + ";cameraYFov=" + ExportOptions::cameraYFov() 
+			+ ";encodedNames=" + ExportOptions::exportEncodedNames()
             + ";doublePrecision=" + ExportOptions::doublePrecision () + "\n\t\t";
         asset.getContributor().mComments = optstr.asChar();
 
@@ -438,7 +484,7 @@ namespace COLLADAMaya
         buffer[length] = '\0';
 
         MString mayaReturnString ( buffer );
-        delete buffer;
+        delete [] buffer;
 
         return COLLADABU::Utils::checkNCName( mayaReturnString.asChar() );
     }
@@ -448,10 +494,15 @@ namespace COLLADAMaya
     {
         // Make an unique COLLADA Id from a dagPath.
         // We are free to use anything we want for Ids. For now use
-        // a honking unique name for readability - but in future we
-        // could just use an incrementing integer
-        return mayaNameToColladaName ( dagPath.partialPathName(), false, removeFirstNamespace );
+        // full path name to ensure id uniqueness. DagPath partial name can not be used
+        // because it can lead to issues when referencing nodes sharing the same name.
+        return mayaNameToColladaName(dagPath.fullPathName(), false, removeFirstNamespace);
     }
+
+	String DocumentExporter::dagPathToColladaSid(const MDagPath & dagPath)
+	{
+		return mayaNameToColladaName(dagPath.partialPathName());
+	}
 
     //---------------------------
     String DocumentExporter::dagPathToColladaName ( const MDagPath& dagPath )
@@ -531,6 +582,12 @@ namespace COLLADAMaya
     }
 
     //---------------------------
+    PhysXExporter* DocumentExporter::getPhysXExporter()
+    {
+        return mPhysXExporter;
+    }
+
+    //---------------------------
 	PhysicsSceneExporter* DocumentExporter::getPhysicsSceneExporter()
 	{
 		return mPhysicsSceneExporter;
@@ -559,6 +616,11 @@ namespace COLLADAMaya
     {
         return mLightExporter;
     }
+
+	LODExporter* DocumentExporter::getLODExporter()
+	{
+		return mLODExporter;
+	}
 
     //---------------------------
     LightProbeExporter* DocumentExporter::getLightProbeExporter()

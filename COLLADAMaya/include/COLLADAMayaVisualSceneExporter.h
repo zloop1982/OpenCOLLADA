@@ -47,6 +47,8 @@ namespace COLLADAMaya
     class VisualSceneExporter : public COLLADASW::LibraryVisualScenes
     {
 
+		friend class LODExporter;
+
     private:
 
         /**
@@ -91,6 +93,15 @@ namespace COLLADAMaya
         /** The current transform matrix. */
         MTransformationMatrix mTransformMatrix;
 
+		/** Lod Index Counter during visual scene Pass*/
+		int mLODIndexCounter1;
+		std::map<SceneElement*, int> lodCounterMap;
+
+		/** Lod Index Counter during Library node Pass*/
+		int mLODIndexCounter2;
+
+		
+
     public:
 
         /**
@@ -105,7 +116,7 @@ namespace COLLADAMaya
         /**
          * Destructor.
          */
-        virtual ~VisualSceneExporter() {};
+        virtual ~VisualSceneExporter();
 
         /** 
          * Exports the visual scene with the transforms of all included elements 
@@ -116,12 +127,18 @@ namespace COLLADAMaya
         * A collada id for every maya id.
         */
         const String findColladaNodeId ( const String& mayaNodeId );
+		const String findNextColladaNodeId(const SceneElement* sceneElement, int& indexLOD);
 
         /**
         * Creates the uri for the scene element. Checks for instances 
         * and creates the right element.
         */
-        COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = EMPTY_STRING );
+		COLLADASW::URI getSceneElementURI(const SceneElement* sceneElement, const String& elementId = EMPTY_STRING);
+
+        /**
+        * Creates the uri for the given DagPath.
+        */
+		COLLADASW::URI getSceneElementURI(const MDagPath& dagPath, const String& id = EMPTY_STRING);
 
         /**
          * Returns the collada id of the current node, if it is a transform node.
@@ -132,7 +149,9 @@ namespace COLLADAMaya
 		 * |namespace1:namespace2:nodeName -> _namespace2_nodeName
 		 * |namespace:nodeName -> _nodeName
          */
-        String getColladaNodeId ( const MDagPath& dagPath, bool removeFirstNamespace = false );
+		String getColladaNodeId(const MDagPath& dagPath, bool removeFirstNamespace = false);
+
+		void ResetLODCounter();
 
     private:
 
@@ -228,7 +247,7 @@ namespace COLLADAMaya
          * If not, we don't need to write the current material instance.
          */
         const bool meshContainsShaderPolygons ( 
-            const MFnMesh& fnMesh, 
+            const MObject& mesh,
             const MObjectArray& shaders, 
             const MIntArray& shaderIndices, 
             const uint shaderPosition );
@@ -244,7 +263,7 @@ namespace COLLADAMaya
          * Prepares a new the visual scene node.
          * @param sceneElement The scene element of the node.
          */
-        void openVisualSceneNode ( const SceneElement *sceneElement );
+        bool openVisualSceneNode ( const SceneElement *sceneElement );
 
         /**
          * Compute local space parameters and export them. These parameters are:

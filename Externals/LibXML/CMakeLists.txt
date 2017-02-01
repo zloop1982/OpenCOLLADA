@@ -1,6 +1,29 @@
 set(name xml)
 project(${name})
 
+add_definitions(
+		-DLIBXML_AUTOMATA_ENABLED
+        -DLIBXML_HTTP_ENABLED
+		-DLIBXML_PATTERN_ENABLED
+		-DLIBXML_REGEXP_ENABLED
+		-DLIBXML_SCHEMAS_ENABLED
+		-DLIBXML_XPATH_ENABLED
+		-DLIBXML_TREE_ENABLED
+	)
+	
+if(USE_STATIC_MSVC_RUNTIME)
+	foreach(flag CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL
+			CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
+			CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
+		if(${flag} MATCHES "/MD")
+			STRING(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
+		endif()
+		if(${flag} MATCHES "/MDd")
+			STRING(REGEX REPLACE "/MDd" "/MTd" ${flag} "${${flag}}")
+		endif()
+	endforeach()
+endif()
+
 set(libxml_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
@@ -42,9 +65,12 @@ set(SRC
 	xmlreader.c
 	xmlregexp.c
 	xmlsave.c
+	xmlschemas.c
+	xmlschemastypes.c
 	xmlstring.c
 	xmlunicode.c
 	xmlwriter.c
+	xpath.c
 	tree.c
 )
 

@@ -50,12 +50,17 @@ namespace COLLADAMaya
             LIGHT,
             PHYSIK,
 			PHYSIK_BULLET,
+            PHYSX_RIGID_SOLVER,
+            PHYSX_RIGID_BODY,
+            PHYSX_RIGID_CONSTRAINT,
+            PHYSX_SHAPE,
             SPLINE,
             NURBS,
             EMITTER,
             CONSTRAINT,
             BONE,
-            LIGHT_PROBE
+            LIGHT_PROBE,
+			LOD
         };
 
     private:
@@ -117,13 +122,13 @@ namespace COLLADAMaya
         virtual ~SceneElement ();
 
         /** Returns the node path */
-        const MDagPath getPath () const;
+        const MDagPath& getPath () const;
 
         /** Returns the node */
-        const MObject& getNode () const;
+		const MObject& getNode () const;
 
         /** Returns the type of the node*/
-        const Type& getType () const;
+		const Type& getType() const;
         void setType ( const Type& _type )
         {
             mType = _type;

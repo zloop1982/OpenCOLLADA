@@ -244,6 +244,10 @@ namespace COLLADAMaya
         const MDagPath &dagPath,
         SceneElement* parentSceneElement )
     {
+        // Add the element to the current selection list.
+        // This is needed to make sure PhysX plugin also exports them.
+        MGlobal::select(dagPath, MObject::kNullObj, MGlobal::kAddToList);
+
         // Create a new scene element
         SceneElement* sceneElement = new SceneElement ( dagPath );
 
@@ -367,6 +371,15 @@ namespace COLLADAMaya
             return false;
         }
 
+        MObject object = dagPath.node();
+        MFnDependencyNode fnDependencyNode(object);
+        MString nodeTypeName = fnDependencyNode.typeName();
+        if (nodeTypeName == NX_RIGID_SOLVER ||
+            nodeTypeName == NX_RIGID_CONSTRAINT ||
+            nodeTypeName == NX_SHAPE) {
+            return false;
+        }
+
         // If we are not already forcing this node, its children
         // check whether we should be forcing it (skinning of hidden joints).
         isForced = isForcedNode ( dagPath );
@@ -379,7 +392,7 @@ namespace COLLADAMaya
 
 		//Search if this node has a child which is a Solver Physics Bullet Node
 		MFnDagNode fnNode(node);
-		for (int i = 0; i < fnNode.childCount(); ++i) 
+		for (unsigned int i = 0; i < fnNode.childCount(); ++i) 
 		{
 			MObject child = fnNode.child(i);
 			MFnDependencyNode shaderNode(child, &status);

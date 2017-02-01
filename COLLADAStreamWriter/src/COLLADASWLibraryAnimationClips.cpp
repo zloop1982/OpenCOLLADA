@@ -12,17 +12,21 @@
 #include "COLLADASWLibraryAnimationClips.h"
 #include "COLLADASWConstants.h"
 
+
+#include "COLLADASWSource.h"
+#include "COLLADASWLibraryAnimations.h"
+
 namespace COLLADASW
 {
 
     //---------------------------------------------------------------
-    ColladaAnimationClip::ColladaAnimationClip ( const String& animationClipId )
-            : mAnimationClipId ( animationClipId ), mStartTime ( -1.0f ), mEndTime ( -1.0f )
+	ColladaAnimationClip::ColladaAnimationClip(const String& animationClipId, const String& animationClipSourceId)
+		: mAnimationClipId(animationClipId), mAnimationClipSourceId(animationClipSourceId), mStartTime(-1.0f), mEndTime(-1.0f)
     {}
 
     //---------------------------------------------------------------
-    ColladaAnimationClip::ColladaAnimationClip ( const String& animationClipId, float &startTime, float &endTime )
-            : mAnimationClipId ( animationClipId ), mStartTime ( startTime ), mEndTime ( endTime )
+	ColladaAnimationClip::ColladaAnimationClip(const String& animationClipId, const String& animationClipSourceId, float &startTime, float &endTime)
+		: mAnimationClipId(animationClipId), mAnimationClipSourceId(animationClipSourceId), mStartTime(startTime), mEndTime(endTime)
     {}
 
     //---------------------------------------------------------------
@@ -37,7 +41,7 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    void LibraryAnimationClips::addAnimationClip ( const ColladaAnimationClip& animationClip )
+	void LibraryAnimationClips::addAnimationClip(const ColladaAnimationClip& animationClip)
     {
         // Opens the library, if it is not already open.
         openLibrary();
@@ -45,6 +49,9 @@ namespace COLLADASW
 
         if ( !animationClip.getAnimationClipId().empty() )
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() );
+
+        if (!animationClip.getName().empty())
+            mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_NAME, animationClip.getName());
 
         if ( animationClip.getStartTime() != ( -1.0f ) )
             mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_START, animationClip.getStartTime() );
@@ -63,8 +70,53 @@ namespace COLLADASW
             mSW->closeElement();
         }
 		
-		if (animationClip.isAnimationEvent())
-			animationClip.addExtraTechniques(mSW);
+//		if (animationClip.isAnimationEvent())
+//			animationClip.addExtraTechniques(mSW);
+
+		std::vector<float> valuesTime;
+		std::vector<String> valuesID;
+
+		MarkersList markers = const_cast<ColladaAnimationClip&>(animationClip).getMarkersList();
+
+		MarkersList::const_iterator markerIter = markers.begin();
+		for (; markerIter != markers.end(); ++markerIter)
+		{
+			valuesTime.push_back(markerIter->time);
+			valuesID.push_back(markerIter->ID);
+		}
+
+
+		if (!valuesTime.empty())
+		{
+			mSW->openElement(CSWC::CSW_ELEMENT_EXTRA);
+			{
+				mSW->openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, "OpenCOLLADAMaya");
+				{
+					mSW->openElement(CSWC::CSW_ELEMENT_EVENT);
+
+					const String sourceId = "-marker";
+
+					mSW->openElement(CSWC::CSW_ELEMENT_TIMESTAMPS);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() + sourceId + LibraryAnimations::INPUT_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_COUNT, (unsigned long)valuesTime.size());
+					mSW->appendValues(valuesTime);
+					mSW->closeElement();
+									
+					mSW->openElement(CSWC::CSW_ELEMENT_MARKERS);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() + sourceId + LibraryAnimations::NAME_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_COUNT, (unsigned long)valuesID.size());
+					mSW->appendValues(valuesID);
+					mSW->closeElement();
+
+					mSW->closeElement();
+				}
+				mSW->closeElement();
+			}
+			mSW->closeElement();
+		}
+
+
 
         mSW->closeElement();
     }

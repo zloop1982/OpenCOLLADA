@@ -1,3 +1,5 @@
+EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
+message( STATUS "Architecture: ${ARCHITECTURE}" )
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 	if(NOT DEFINED WITH_IN_SOURCE_BUILD)
@@ -63,6 +65,11 @@ macro(opencollada_add_lib
 			else()
 				target_link_libraries(${name}_static ${target_lib})
 			endif()
+			if( ${ARCHITECTURE} MATCHES "mips" )
+				if(TARGET OpenCOLLADASaxFrameworkLoader_static)
+					SET_TARGET_PROPERTIES(OpenCOLLADASaxFrameworkLoader_static PROPERTIES COMPILE_FLAGS "-Umips")
+				endif()
+			endif()
 		endforeach()
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
 
@@ -83,6 +90,11 @@ macro(opencollada_add_lib
 				target_link_libraries(${name}_shared ${target_lib}_shared)
 			else()
 				target_link_libraries(${name}_shared ${target_lib})
+			endif()
+			if( ${ARCHITECTURE} MATCHES "mips" )
+				if(TARGET OpenCOLLADASaxFrameworkLoader_shared)
+					SET_TARGET_PROPERTIES(OpenCOLLADASaxFrameworkLoader_shared PROPERTIES COMPILE_FLAGS "-Umips")
+				endif()
 			endif()
 		endforeach()
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}"  PARENT_SCOPE)
@@ -197,6 +209,7 @@ option(USE_STATIC "Build static libraries"  ON)
 option(USE_SHARED "Build shared libraries"  OFF)
 option(USE_LIBXML "Use LibXml2 parser"      ON)
 option(USE_EXPAT  "Use expat parser"        OFF)
+option(USE_STATIC_MSVC_RUNTIME "Use static version of the MSVC run-time library" OFF)
 
 #adding xml2
 if (USE_LIBXML)
@@ -226,6 +239,19 @@ if (USE_EXPAT)
 	message("FATAL: EXPAT support not implemented")
 	# TODO:: use externals
 endif ()
+
+if(USE_STATIC_MSVC_RUNTIME)
+	foreach(flag CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL
+			CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
+			CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
+		if(${flag} MATCHES "/MD")
+			STRING(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
+		endif()
+		if(${flag} MATCHES "/MDd")
+			STRING(REGEX REPLACE "/MDd" "/MTd" ${flag} "${${flag}}")
+		endif()
+	endforeach()
+endif()
 
 #adding PCRE
 find_package(PCRE)
@@ -259,6 +285,8 @@ add_subdirectory(COLLADAStreamWriter)
 # building COLLADAValidator app
 add_subdirectory(COLLADAValidator)
 
+# DAE validator app
+add_subdirectory(DAEValidator)
 
 # Library export
 install(EXPORT LibraryExport DESTINATION ${OPENCOLLADA_INST_CMAKECONFIG} FILE OpenCOLLADATargets.cmake)
